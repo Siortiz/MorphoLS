@@ -46,11 +46,11 @@ def img_det(grupo):
 
 Data=[]
 for g in GL['Group']:
-    #img_det(g)
-    #Data.append(f'sex Field_Img/det/det_group_{g}.fits -c sex.conf -CATALOG_NAME sex/group_{g} -CATALOG_TYPE ASCII_HEAD -PARAMETERS_NAME ./sex.param -DETECT_THRESH 3 -ANALYSIS_THRESH 3 -FILTER_NAME gauss_5.0_9x9.conv -SATUR_LEVEL 25000 -MAG_ZEROPOINT 22.5 -PIXEL_SCALE 0.262 -SEEING_FWHM 1.38 -CHECKIMAGE_TYPE SEGMENTATION -CHECKIMAGE_NAME Field_Img/det/det_group_{g}_seg.fits')
+    img_det(g)
+    Data.append(f'sex Field_Img/det/det_group_{g}.fits -c sex.conf -CATALOG_NAME sex/group_{g} -CATALOG_TYPE ASCII_HEAD -PARAMETERS_NAME ./sex.param -DETECT_THRESH 3 -ANALYSIS_THRESH 3 -FILTER_NAME gauss_5.0_9x9.conv -SATUR_LEVEL 25000 -MAG_ZEROPOINT 22.5 -PIXEL_SCALE 0.262 -SEEING_FWHM 1.38 -CHECKIMAGE_TYPE SEGMENTATION -CHECKIMAGE_NAME Field_Img/det/det_group_{g}_seg.fits')
 
 
-'''fic = open('sex_seg.sh', 'w')
+fic = open('sex_seg.sh', 'w')
 for line in Data:
     print(line, file=fic)
-fic.close'''
+fic.close

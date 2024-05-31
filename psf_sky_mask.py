@@ -127,8 +127,8 @@ def mask(grupo):
             print(f"El archivo para el filtro {filtro} no está disponible.")'''
 
 for g in GL['Group']:
-    filtros = filter_sel(g)[1]
-   mask(g)
+    filtros = filter_sel(g)[0]
+    mask(g)
     for filtro in filtros:
         print(g, filtro)
         psf_maker(g, filtro)
