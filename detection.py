@@ -2,7 +2,9 @@ from astropy.table import *
 from astropy.io import fits
 import os
 import numpy as np
-L = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_186.csv')
+from utils import filter_sel 
+from ejecutable import L
+#L = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_186.csv')
 Datos_L = L.group_by('Group')
 GL = Datos_L.groups.keys
         
@@ -44,10 +46,19 @@ def img_det(grupo):
 
     return
 
+def fwhm(grupo, filtros):
+    psfsize = []
+    for filtro in filtros:
+        mean_band = np.mean(Datos_L[f'psfsize_{filtro}'])
+        psfsize.append(mean_band)
+    mean_fwhm = np.mean(psfsize)
+
 Data=[]
 for g in GL['Group']:
     img_det(g)
-    Data.append(f'sex Field_Img/det/det_group_{g}.fits -c sex.conf -CATALOG_NAME sex/group_{g} -CATALOG_TYPE ASCII_HEAD -PARAMETERS_NAME ./sex.param -DETECT_THRESH 3 -ANALYSIS_THRESH 3 -FILTER_NAME gauss_5.0_9x9.conv -SATUR_LEVEL 25000 -MAG_ZEROPOINT 22.5 -PIXEL_SCALE 0.262 -SEEING_FWHM 1.38 -CHECKIMAGE_TYPE SEGMENTATION -CHECKIMAGE_NAME Field_Img/det/det_group_{g}_seg.fits')
+    filtros = filter_sel(g)[0]
+    fwhm = fwhm(g, filtros)
+    Data.append(f'sex Field_Img/det/det_group_{g}.fits -c sex.conf -CATALOG_NAME sex/group_{g} -CATALOG_TYPE ASCII_HEAD -PARAMETERS_NAME ./sex.param -DETECT_THRESH 3 -ANALYSIS_THRESH 3 -FILTER_NAME gauss_5.0_9x9.conv -SATUR_LEVEL 25000 -MAG_ZEROPOINT 22.5 -PIXEL_SCALE 0.262 -SEEING_FWHM {fwhm} -CHECKIMAGE_TYPE SEGMENTATION -CHECKIMAGE_NAME Field_Img/det/det_group_{g}_seg.fits')
 
 
 fic = open('sex_seg.sh', 'w')

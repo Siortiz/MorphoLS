@@ -9,6 +9,7 @@ from astropy.io import fits
 from astropy.nddata import CCDData
 from astropy.table import *
 from utils import filter_sel, coordenadas
+from ejecutable import L
 import os
  
 def median_sky(grupo, filtros):
@@ -17,7 +18,8 @@ def median_sky(grupo, filtros):
         image = CCDData.read(f'/home/seba/Documents/DECALS/joined_bricks/{grupo}/{grupo}_image_{filtro}.fits', unit='adu')
         mean, median, std = sigma_clipped_stats(image.data, sigma=3.0)
         sk.append(median)
-    texto_sky = ', '.join(str(sk))
+    print(sk)
+    texto_sky = ','.join(map(str,sk))
     I = f'1) {texto_sky}'
     return I
 
@@ -25,37 +27,28 @@ def galfit_input(GRf, filtros, long):
     grupo=GRf['Group'][0]
     #Band labels
     f = filtros.tolist()
-    texto_filtros = ', '.join(f)
+    texto_filtros = ','.join(f)
     A1 = f"A1) {texto_filtros}"
     #Band wavelenghts
     w = long.tolist()
-    texto_wvl = ', '.join(w)
+    texto_wvl = ','.join(w)
     A2 = f"A2) {texto_wvl}"
     #Output data image block (FITS filename)
-    B = 'B) galfitm_output/galfitm_group_{grupo}.fits'
-    # Sigma image name (CSL of <nbands> FITS filenames or "none")
-	# (if an individual filename is specified as "none", then that sigma
-	#  image will be made from data; if the whole entry consists of just a
-	#  single "none", then all sigma images will be made from data.)
-	# One can also add a minimum sigma value, such that any galfit-created
-	# sigma image will have a minimum of that value times the sky-subtracted
-	# input data.
-    C = 'C) none'
+    B = f'B) galfitm_output/galfitm_group_{grupo}.fits'
     # PSF fine sampling factor relative to data
     E = 'E) 1'
     #Mask
-    mask = 'Field_Img/mask/mask_group_{grupo}.fits'
+    mask = f'Field_Img/mask/mask_group_{grupo}.fits'
     num_filtros=len(filtros)
-    F = 'F) '+', '.join([mask]*num_filtros)
+    F = 'F) '+','.join([mask]*num_filtros)
     #File with parameter constraints (ASCII file)
     G = 'G) none'
     #Image region to fit (xmin xmax ymin ymax)
-    H = 'H) 0, 1374, 0, 1374'
+    H = 'H) 0 1374 0 1374'
     #Size of the convolution box(x, y)
-    I = 'I) 150, 150'
+    I = 'I) 300 300'
     #Magnitude photometric zeropoint
-    J = 'J) '+', '.join(['22.5']*num_filtros)
-    print(J)
+    J = 'J) '+','.join(['22.5']*num_filtros)
     #Plate scale (dx dy) [arcsec per pixel]
     K = 'K) 0.262 0.262'
     #Display type (regular, curses, both)
@@ -64,67 +57,83 @@ def galfit_input(GRf, filtros, long):
     P = 'P) 0'
     #Non-parametric component
     U = 'U) 0' #Standard parametric fitting
-    W = 'W) input, model, residual'
+    V = 'V) 0' #Multinest
+    W = 'W) input,model,residual'
     a = []
+    c = []
     d = []
     #Input data images (CSL of FITS filenames)
     for j in range(num_filtros):
-        a.append(f'/home/seba/Documents/DECALS/joined_bricks/{grupo}/{grupo}_image_filtros[j].fits')
-        d.append(f'Field_Img/psf/psf_group_{grupo}_filtros[j].fits')
-    texto_img = ', '.join(a)
-    A = 'A) {texto_img}'
+        a.append(f'/home/seba/Documents/DECALS/joined_bricks/{grupo}/{grupo}_image_{filtros[j]}.fits')
+        c.append(f'/home/seba/Documents/DECALS/sigma_image/{grupo}/sigma_{grupo}_weight_{filtros[j]}.fits')
+        d.append(f'Field_Img/psf/psf_group_{grupo}_{filtros[j]}.fits')       
+    texto_img = ','.join(a)
+    A = f'A) {texto_img}'
+    # Sigma image name (CSL of <nbands> FITS filenames or "none")
+    # (if an individual filename is specified as "none", then that sigma
+    #  image will be made from data; if the whole entry consists of just a
+    #  single "none", then all sigma images will be made from data.)
+    # One can also add a minimum sigma value, such that any galfit-created
+    # sigma image will have a minimum of that value times the sky-subtracted
+    # input data.
+    texto_sigma = ','.join(c)
+    C = f'C) {texto_sigma}'    
     #Input PSF image (CSL of <nbands> FITS filenames
-    texto_psf = ', '.join(d)
-    D = 'D) {texto_psf}'
+    texto_psf = ','.join(d)
+    D = f'D) {texto_psf}'
     Data = [A, A1, A2, B, C, D, E, F, G, H, I, J, K, O, P, U, W]
+    X_1=[]
+    Y_1=[]
     for i in range(len(GRf)):
         Data.append(f'#----------Galaxia ({i})----------')
         Data.append('0) sersic') #Object type
         x = X[i]
         y = Y[i]
-        Data.append('1) '+', '.join([str(x)]*num_filtros)+'1')
-        Data.append('2) '+', '.join([str(y)]*num_filtros)+'1')
+        X_1.append(x)
+        Y_1.append(y)
+        Data.append('1) '+','.join([str(x)]*num_filtros)+' 1')
+        Data.append('2) '+','.join([str(y)]*num_filtros)+' 1')
         #Magnitudes
         magnitudes = [GRf[f'mag_{filtro}'][i] for filtro in filtros]
-        magnitudes_text = ', '.join(map(str, magnitudes))
-        Data.append('3) '+magnitudes_text)
+        magnitudes_text = ','.join(map(str, magnitudes))
+        Data.append('3) '+magnitudes_text+f' {num_filtros}')
         
         #Filtrar sex_data
-        mask = (sex_data['X_IMAGE'] == x) & (sex_data['Y_IMAGE'] == y)
+        mask = (np.abs(sex_data['X_IMAGE'] - x) <=15) & (np.abs(sex_data['Y_IMAGE'] - y) <= 15)
         filtered_sex_data = sex_data[mask]
-
-        R = filtered_sex_data['FLUX_RADIUS']
-        Kron = filtered_sex_data['KRON_RADIUS']
+        #print(filtered_sex_data)
+        R = filtered_sex_data['FLUX_RADIUS'][0]
+        Kron = filtered_sex_data['KRON_RADIUS'][0]
         n = R/Kron
         texto_r = [str(R)]*num_filtros
-        Data.append('4) '+', '.join(texto_r)+' 2')
-        texto_n = [str(n)]
-        Data.append('5) '+', '.join(texto_n)+' 2')
-        el = 1/sex_data['ELONGATION']
+        Data.append('4) '+','.join(texto_r)+' 2')
+        texto_n = [str(n)]*num_filtros
+        Data.append('5) '+','.join(texto_n)+' 2')
+        el = 1/filtered_sex_data['ELONGATION'][0]
         texto_el = [str(el)]*num_filtros
-        Data.append('9) '+', '.join(texto_el)+' 1')
-        if filtered_sex_data['THETA_IMAGE'] >= 0:
-            Th = (filtered_sex_data['THETA_IMAGE']-90)
+        Data.append('9) '+','.join(texto_el)+' 1')
+        if filtered_sex_data['THETA_IMAGE'][0] >= 0:
+            Th = (filtered_sex_data['THETA_IMAGE'][0] - 90)
         else:
-            Th = (filtered_sex_data['THETA_IMAGE']+90)
+            Th = (filtered_sex_data['THETA_IMAGE'][0] + 90)
         texto_theta = [str(Th)]*num_filtros
-        Data.append('10) '+', '.join(texto_theta)+' 1')
-        Data.append('Z) 0') #Skip this model in output image? (yes=1, no=0)
-        Data.append('#-------sky-------')
-        Data.append('0) sky')
-        Data.append(median_sky(grupo, filtros)) #sky background [ADU counts]
-        Data.append('2) 0.000   0') #dsky/dx (sky gradient in x)	Data.append('2) 0.000      0 ') # dsky/dx (sky gradient in x) 
-        Data.append('3) 0.000   0 ') # dsky/dy (sky gradient in y)
-        Data.append('Z) 0')   # Skip this model in output image?  (yes=1, no=0)
+        Data.append('10) '+','.join(texto_theta)+' 1')
+    Data.append('Z) 0') #Skip this model in output image? (yes=1, no=0)
+    Data.append('#-------sky-------')
+    Data.append('0) sky')
+    Data.append(median_sky(grupo, filtros)+' 1') #sky background [ADU counts]
+    Data.append('2) 0.000   0') #dsky/dx (sky gradient in x)	Data.append('2) 0.000      0 ') # dsky/dx (sky gradient in x) 
+    Data.append('3) 0.000   0 ') # dsky/dy (sky gradient in y)
+    Data.append('Z) 0')   # Skip this model in output image?  (yes=1, no=0)
         
-        #Guardar cada línea de data en un archivo
-        fic = open(f'inputs/galfit_{grupo}.input', 'w')
-        for line in Data:
-            print(line, file = fic)
-        fic.close()
-        return
+    #Guardar cada línea de data en un archivo
+    fic = open(f'inputs/galfit_{grupo}.input', 'w')
+    for line in Data:
+        print(line, file = fic)
+    fic.close()
+    return X_1, Y_1
 
-L = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_186.csv')
+#L = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_186.csv')
 Datos_L = L.group_by('Group')
 GL = Datos_L.groups.keys
 
@@ -136,4 +145,4 @@ for g in GL['Group']:
     sex_data = ascii.read(f'sex/group_{g}')
     mask = Datos_L.groups.keys['Group'] == g
     GRf = Datos_L.groups[mask]
-    galfit_input(GRf,filtros,long) 
+    X_1, Y_1 = galfit_input(GRf,filtros,long) 

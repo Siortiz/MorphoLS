@@ -4,8 +4,8 @@ from astropy.io import fits
 from astropy.wcs import WCS
 import astropy.units as u
 from astropy.table import Table
-
-L = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_186.csv')
+from ejecutable import L
+#L = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_186.csv')
 Datos_L = L.group_by('Group')
 GL = Datos_L.groups.keys
 
@@ -44,4 +44,5 @@ def coordenadas(grupo):
         Y.append(Y_new)
     X=np.array(X)
     Y=np.array(Y)
+    print(X, Y)
     return X, Y
