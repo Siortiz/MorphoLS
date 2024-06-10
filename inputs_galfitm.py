@@ -18,7 +18,7 @@ def median_sky(grupo, filtros):
         image = CCDData.read(f'/home/seba/Documents/DECALS/joined_bricks/{grupo}/{grupo}_image_{filtro}.fits', unit='adu')
         mean, median, std = sigma_clipped_stats(image.data, sigma=3.0)
         sk.append(median)
-    print(sk)
+    #print(sk)
     texto_sky = ','.join(map(str,sk))
     I = f'1) {texto_sky}'
     return I
@@ -98,24 +98,21 @@ def galfit_input(GRf, filtros, long):
         magnitudes_text = ','.join(map(str, magnitudes))
         Data.append('3) '+magnitudes_text+f' {num_filtros}')
         
-        #Filtrar sex_data
-        mask = (np.abs(sex_data['X_IMAGE'] - x) <=15) & (np.abs(sex_data['Y_IMAGE'] - y) <= 15)
-        filtered_sex_data = sex_data[mask]
-        #print(filtered_sex_data)
-        R = filtered_sex_data['FLUX_RADIUS'][0]
-        Kron = filtered_sex_data['KRON_RADIUS'][0]
+                
+        R = sex_data['FLUX_RADIUS'][i]
+        Kron = sex_data['KRON_RADIUS'][i]
         n = R/Kron
         texto_r = [str(R)]*num_filtros
         Data.append('4) '+','.join(texto_r)+' 2')
         texto_n = [str(n)]*num_filtros
         Data.append('5) '+','.join(texto_n)+' 2')
-        el = 1/filtered_sex_data['ELONGATION'][0]
+        el = 1/sex_data['ELONGATION'][i]
         texto_el = [str(el)]*num_filtros
         Data.append('9) '+','.join(texto_el)+' 1')
-        if filtered_sex_data['THETA_IMAGE'][0] >= 0:
-            Th = (filtered_sex_data['THETA_IMAGE'][0] - 90)
+        if sex_data['THETA_IMAGE'][i] >= 0:
+            Th = (sex_data['THETA_IMAGE'][i] - 90)
         else:
-            Th = (filtered_sex_data['THETA_IMAGE'][0] + 90)
+            Th = (sex_data['THETA_IMAGE'][i] + 90)
         texto_theta = [str(Th)]*num_filtros
         Data.append('10) '+','.join(texto_theta)+' 1')
     Data.append('Z) 0') #Skip this model in output image? (yes=1, no=0)
@@ -140,9 +137,9 @@ GL = Datos_L.groups.keys
 for g in GL['Group']:
     filtros = filter_sel(g)[0]
     long = filter_sel(g)[1]
-    X = coordenadas(g)[0]
-    Y = coordenadas(g)[1]
-    sex_data = ascii.read(f'sex/group_{g}')
+    sex_data = Table.read(f'sex/Galaxies_group_{g}.csv')
+    X = sex_data['X_IMAGE']
+    Y = sex_data['Y_IMAGE']
     mask = Datos_L.groups.keys['Group'] == g
     GRf = Datos_L.groups[mask]
     X_1, Y_1 = galfit_input(GRf,filtros,long) 

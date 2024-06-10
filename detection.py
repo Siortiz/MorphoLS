@@ -46,19 +46,25 @@ def img_det(grupo):
 
     return
 
-def fwhm(grupo, filtros):
+def fwhm(GR, filtros):
     psfsize = []
     for filtro in filtros:
-        mean_band = np.mean(Datos_L[f'psfsize_{filtro}'])
+        mean_band = np.mean(GR[f'psfsize_{filtro}'])
+        #print(GR[f'psfsize_{filtro}'])
         psfsize.append(mean_band)
     mean_fwhm = np.mean(psfsize)
 
 Data=[]
 for g in GL['Group']:
     img_det(g)
+    print(f'Grupo {g}')
     filtros = filter_sel(g)[0]
-    fwhm = fwhm(g, filtros)
-    Data.append(f'sex Field_Img/det/det_group_{g}.fits -c sex.conf -CATALOG_NAME sex/group_{g} -CATALOG_TYPE ASCII_HEAD -PARAMETERS_NAME ./sex.param -DETECT_THRESH 3 -ANALYSIS_THRESH 3 -FILTER_NAME gauss_5.0_9x9.conv -SATUR_LEVEL 25000 -MAG_ZEROPOINT 22.5 -PIXEL_SCALE 0.262 -SEEING_FWHM {fwhm} -CHECKIMAGE_TYPE SEGMENTATION -CHECKIMAGE_NAME Field_Img/det/det_group_{g}_seg.fits')
+    mask = Datos_L.groups.keys['Group']==g
+    GR = Datos_L.groups[mask]
+    #print(filtros)
+    #print(GR['psfsize_g'], GR['psfsize_i'], GR['psfsize_z'])
+    fwhm_size = fwhm(GR, filtros)
+    Data.append(f'sex Field_Img/det/det_group_{g}.fits -c sex.conf -CATALOG_NAME sex/group_{g} -CATALOG_TYPE ASCII_HEAD -PARAMETERS_NAME ./sex.param -DETECT_THRESH 3 -ANALYSIS_THRESH 3 -FILTER_NAME gauss_5.0_9x9.conv -SATUR_LEVEL 25000 -MAG_ZEROPOINT 22.5 -PIXEL_SCALE 0.262 -SEEING_FWHM {fwhm_size} -CHECKIMAGE_TYPE SEGMENTATION -CHECKIMAGE_NAME Field_Img/det/det_group_{g}_seg.fits')
 
 
 fic = open('sex_seg.sh', 'w')

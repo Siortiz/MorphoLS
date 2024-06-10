@@ -3,7 +3,7 @@ from astropy.io import ascii
 import numpy as np
 import csv
 
-L = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_20.csv')
+L = Table.read('/home/seba/Documents/MorphoLS/Catalog/GalfitM_DECALS.csv')
 Datos_L = L.group_by('Group')
 Groups = Datos_L.groups.keys
 
@@ -11,6 +11,7 @@ Groups = Datos_L.groups.keys
 Data = ['python detection.py']
 Data.append('chmod 777 sex_seg.sh')
 Data.append('./sex_seg.sh')
+Data.append('python cross_sex_decals.py')
 Data.append('python psf_mask.py')
 Data.append('python inputs_galfitm.py')
 

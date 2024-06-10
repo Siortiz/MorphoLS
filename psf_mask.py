@@ -27,7 +27,7 @@ def psf_maker(grupo, filtro):
     snr = stars['SNR_WIN']
     #Para no considerar las estrellas de los bordes
     
-    size_box = 40
+    size_box = 41
     hsize = (size_box) - 1/2
     mask = ((x > hsize) & (x < (data.shape[1] -1 - hsize)) & (y > hsize) & (y <   (data.shape[0] -1 - hsize)))
     x=x[mask]
@@ -80,7 +80,7 @@ def psf_maker(grupo, filtro):
     
     #Calcular la psf
     
-    epsf_builder = EPSFBuilder(oversampling=4, maxiters=3, progress_bar=True)
+    epsf_builder = EPSFBuilder(oversampling=1, maxiters=3, progress_bar=True)
     epsf, fitted_stars = epsf_builder(extracted_stars)
 
     hdu_psf = fits.PrimaryHDU(epsf.data)
@@ -90,43 +90,35 @@ def psf_maker(grupo, filtro):
     return
 
 def mask(grupo):
-    #Coordenadas a posiciones
-    hdu = fits.open(f'Field_Img/det/det_group_{grupo}.fits')
-    hdur = hdu[0].header
-    wcs = WCS(header=hdu[0].header)
-    X_0 = hdur['CRPIX1']
-    Y_0 = hdur['CRPIX2']
-    RA_0 = hdur['CRVAL1']*u.degree
-    DEC_0 = hdur['CRVAL2']*u.degree
-    delta = np.abs(hdur['CDELT1'])*u.degree
-    X = []
-    Y = []
-    for i in range(len(Datos_L)):
-        RA = Datos_L['ra'][i]*u.degree
-        DEC = Datos_L['dec'][i]*u.degree
-        (X_new, Y_new) = wcs.all_world2pix(RA, DEC, 1)
-        X.append(X_new)
-        Y.append(Y_new)
-    X=np.array(X)
-    Y=np.array(Y)
+    #Coordenadas de las galaxias
+
+    Gal_se = Table.read(f'sex/Galaxies_group_{grupo}.csv')
+
+    X=np.array(Gal_se['X_IMAGE'])
+    Y=np.array(Gal_se['Y_IMAGE'])
+
     #Desenmascarar fuentes
-
-    fig = fits.open(f'Field_Img/det/det_group_{grupo}_seg.fits')
-    for i in range(len(X)):
-        arr_mask = fig[0].data == np.abs(fig[0].data - fig[0].data[int(Y[i])][int(X[i])]) < 5
-        fig[0].data[arr_mask] = 0
-    arr_mask = fig[0].data > 0
-    fig[0].data[arr_mask] = 1
-    hdr = fig[0].header
-    imgF = fits.PrimaryHDU(fig[0].data, header=hdr)
-    imgF.writeto(f'Field_Img/mask/mask_group_{grupo}.fits', overwrite=True)
-    return
-
+    det = f'Field_Img/det/det_group_{grupo}_seg.fits'
+    if os.path.exists(det):
+        fig = fits.open(det)
+    
+        for i in range(len(X)):
+            arr_mask = fig[0].data == fig[0].data[int(Y[i])][int(X[i])]
+         
+            fig[0].data[arr_mask] = 0
+        arr_mask = fig[0].data > 0
+        fig[0].data[arr_mask] = 1
+        hdr = fig[0].header
+        imgF = fits.PrimaryHDU(fig[0].data, header=hdr)
+        imgF.writeto(f'Field_Img/mask/mask_group_{grupo}.fits', overwrite=True)
+        return
+    else:
+        print('La imagen de detección del grupo {grupo} no existe')
 for g in GL['Group']:
     filtros = filter_sel(g)[0]
     mask(g)
-    #for filtro in filtros:
-    #    psf_maker(g, filtro)
+    for filtro in filtros:
+        psf_maker(g, filtro)
 
 
 
