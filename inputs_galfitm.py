@@ -128,6 +128,8 @@ def galfit_input(GRf, filtros, long):
     for line in Data:
         print(line, file = fic)
     fic.close()
+
+    print(f'Archivo de input generado para el grupo {grupo}')
     return X_1, Y_1
 
 #L = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_186.csv')
@@ -135,11 +137,12 @@ Datos_L = L.group_by('Group')
 GL = Datos_L.groups.keys
 
 for g in GL['Group']:
-    filtros = filter_sel(g)[0]
-    long = filter_sel(g)[1]
-    sex_data = Table.read(f'sex/Galaxies_group_{g}.csv')
-    X = sex_data['X_IMAGE']
-    Y = sex_data['Y_IMAGE']
-    mask = Datos_L.groups.keys['Group'] == g
-    GRf = Datos_L.groups[mask]
-    X_1, Y_1 = galfit_input(GRf,filtros,long) 
+    if g >= 232:
+        filtros = filter_sel(g)[0]
+        long = filter_sel(g)[1]
+        sex_data = Table.read(f'sex/Galaxies_group_{g}.csv')
+        X = sex_data['X_IMAGE']
+        Y = sex_data['Y_IMAGE']
+        mask = Datos_L.groups.keys['Group'] == g
+        GRf = Datos_L.groups[mask]
+        X_1, Y_1 = galfit_input(GRf,filtros,long) 

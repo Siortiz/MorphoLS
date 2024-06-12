@@ -27,7 +27,7 @@ def psf_maker(grupo, filtro):
     snr = stars['SNR_WIN']
     #Para no considerar las estrellas de los bordes
     
-    size_box = 41
+    size_box = 25
     hsize = (size_box) - 1/2
     mask = ((x > hsize) & (x < (data.shape[1] -1 - hsize)) & (y > hsize) & (y <   (data.shape[0] -1 - hsize)))
     x=x[mask]
@@ -76,7 +76,7 @@ def psf_maker(grupo, filtro):
 
     #Extraer estrellas
     
-    extracted_stars = extract_stars(nddata, stars_tbl, size=39)
+    extracted_stars = extract_stars(nddata, stars_tbl, size=27)
     
     #Calcular la psf
     
@@ -116,9 +116,12 @@ def mask(grupo):
         print('La imagen de detección del grupo {grupo} no existe')
 for g in GL['Group']:
     filtros = filter_sel(g)[0]
-    mask(g)
-    for filtro in filtros:
-        psf_maker(g, filtro)
+    #mask(g)
+    try:
+        for filtro in filtros:
+            psf_maker(g, filtro)
+    except:
+        print(f'La psf del grupo {g} no pudo ser calculada')
 
 
 

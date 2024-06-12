@@ -36,11 +36,17 @@ def crossmatch(grupo):
     matched2 = galaxies[idx[sep_constraint]]
 
     combined_table = hstack([matched1, matched2])
+    ra_com = combined_table['ra']
+    print(matched1)
+    print(matched2)
+    print(galaxies)
+    print(f'La cantidad de galaxias en el grupo {grupo} antes del crossmatch es {len(ra_gal)} y después del crossmatch es {len(ra_com)}')
     combined_table.write(f'sex/Galaxies_group_{grupo}.csv', format='csv', overwrite=True)
     return 
 
-for g in Grupos['Group']:
-    crossmatch(g)
+crossmatch(232)
+#for g in Grupos['Group']:
+#    crossmatch(g)
     
 
 

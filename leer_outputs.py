@@ -14,6 +14,7 @@ from ejecutable import L
 
 fil_name = np.array(['g', 'r', 'i', 'z'])
 def leer_header(NGAL, HEADER):
+    data=[]
     data.append(HEADER['CHI2NU'])
     for i in range(4):
         xc = HEADER.get(f'{NGAL}_XC_{fil_name[i]}', '0.0 0.0 0.0').split( )
@@ -60,15 +61,17 @@ def grafico(fits, grupo, n_filtros):
     return
 
 Tabla=[]
-Datos_L = L.group_by('Group')
+
+L_try = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_7.csv')
+Datos_L = L_try.group_by('Group')
 Grupos = Datos_L.groups.keys
 for g in Grupos['Group']:
     mask = Datos_L.groups.keys['Group'] == g
     Tablef = Datos_L.groups[mask]
     n_filtros = len(filter_sel(g))
     for i in range(len(Tablef)):
-        fits = fits.open('galfitm_{g}.fits')
-        Tabla.append(leer_header(i+1, fits[n_filtros]))
+        fits = fits.open(f'galfitm_output/galfitm_group_{g}.fits')
+        Tabla.append(leer_header(i+1, fits[n_filtros].header))
         grafico(fits, g, n_filtros)
 
 header_names.append('CHI2NU')
@@ -90,7 +93,7 @@ for i in range(4):
     header_names.append(f'e_PA_{fil_name[i]}')
 
 table = Table(rows=Tabla, names=header_names)
-ascii.write(table, f'GalfitM_output.csv', format='csv', fast_writer=False)
+ascii.write(table, f'GalfitM_output_7.csv', format='csv', fast_writer=False)
 
 
 
