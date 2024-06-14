@@ -9,14 +9,15 @@ import glob
 import os
 import re
 from astropy.table import Table
-from utils import filter_sel
-from ejecutable import L
+#from utils import filter_sel
+#from ejecutable import L
 
 fil_name = np.array(['g', 'r', 'i', 'z'])
+
 def leer_header(NGAL, HEADER):
     data=[]
     data.append(HEADER['CHI2NU'])
-    for i in range(4):
+    for i in range(n_filtros):
         xc = HEADER.get(f'{NGAL}_XC_{fil_name[i]}', '0.0 0.0 0.0').split( )
         yc = HEADER.get(f'{NGAL}_YC_{fil_name[i]}', '0.0 0.0 0.0').split( )
         R = HEADER.get(f'{NGAL}_RE_{fil_name[i]}', '0.0 0.0 0.0').split( ) 
@@ -51,29 +52,31 @@ def grafico(fits, grupo, n_filtros):
     fig, axs = plt.subplots(3, 4, figsize=(20, 8), sharex=True, sharey=True)
     for j in range(n_filtros):
         axs[0, j].imshow(fits[j].data, cmap='gray', vmin = -0.5, vmax = 0.5)
-        axs[0, j].set_title(f'Filter {Bands[j]}')
+        axs[0, j].set_title(f'{fil_name[j]}')
         axs[1, j].imshow(fits[n_filtros+j].data, cmap='gray', vmin = -0.5, vmax = 0.5)
         axs[2, j].imshow(fits[2*n_filtros+j].data, cmap='gray', vmin = -0.5, vmax = 0.5)
         axs[0, 0].text(60, 140, '6\"', fontsize = 10, color='green')
         axs[0, 0].plot([60, 80], [150, 150], 'b-', lw=3)
-    plt.savefig('Out_Img/group_{grupo}.svg', format='svg', dpi = 1200)
+    plt.savefig(f'Out_Img/group_{grupo}.svg', format='svg', dpi = 1200)
     plt.close()
     return
 
 Tabla=[]
 
-L_try = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_7.csv')
+L_try = Table.read('Galaxies_group_7.csv')
 Datos_L = L_try.group_by('Group')
 Grupos = Datos_L.groups.keys
 for g in Grupos['Group']:
     mask = Datos_L.groups.keys['Group'] == g
     Tablef = Datos_L.groups[mask]
-    n_filtros = len(filter_sel(g))
+    #n_filtros = len(filter_sel(g))
+    n_filtros = len(fil_name)
     for i in range(len(Tablef)):
-        fits = fits.open(f'galfitm_output/galfitm_group_{g}.fits')
-        Tabla.append(leer_header(i+1, fits[n_filtros].header))
-        grafico(fits, g, n_filtros)
-
+        #fits = fits.open(f'galfitm_output/galfitm_group_{g}.fits')
+        fi = fits.open(f'galfitm_group_{g}.fits')
+        Tabla.append(leer_header(i+1, fi[4].header))
+        grafico(fi, g, n_filtros)
+header_names=[]
 header_names.append('CHI2NU')
 
 for i in range(4):

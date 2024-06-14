@@ -4,10 +4,10 @@ from astropy.io import fits
 from astropy.wcs import WCS
 import astropy.units as u
 from astropy.table import Table
-from ejecutable import L
+#from ejecutable import L
 #L = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_186.csv')
-Datos_L = L.group_by('Group')
-GL = Datos_L.groups.keys
+#Datos_L = L.group_by('Group')
+#GL = Datos_L.groups.keys
 
 
 def filter_sel(grupo):
