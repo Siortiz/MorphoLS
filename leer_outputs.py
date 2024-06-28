@@ -9,10 +9,10 @@ import glob
 import os
 import re
 from astropy.table import Table
-#from utils import filter_sel
-#from ejecutable import L
+from utils import filter_sel
+from ejecutable import L
 
-fil_name = np.array(['g', 'r', 'i', 'z'])
+#fil_name = np.array(['g', 'r', 'i', 'z'])
 
 def leer_header(NGAL, HEADER):
     data=[]
@@ -62,41 +62,59 @@ def grafico(fits, grupo, n_filtros):
     return
 
 Tabla=[]
+header_names=['CHI2NU']
+all_filters = ['g', 'r', 'i', 'z']
 
-L_try = Table.read('Galaxies_group_7.csv')
-Datos_L = L_try.group_by('Group')
+for filt in all_filters:
+    header_names.append(f'XC_{filt}')
+    header_names.append(f'e_XC_{filt}')
+    header_names.append(f'YC_{filt}')
+    header_names.append(f'e_YC_{filt}')
+    header_names.append(f'RE_{filt}')
+    header_names.append(f'e_RE_{filt}')
+    header_names.append(f'MAG_{filt}')
+    header_names.append(f'e_MAG_{filt}')
+    header_names.append(f'n_{filt}')
+    header_names.append(f'e_n_{filt}')
+    header_names.append(f'AR_{filt}')
+    header_names.append(f'e_AR_{filt}')
+    header_names.append(f'PA_{filt}')
+    header_names.append(f'e_PA_{filt}')
+#L_try = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_group_36.csv')
+Datos_L = L.group_by('Group')
 Grupos = Datos_L.groups.keys
 for g in Grupos['Group']:
     mask = Datos_L.groups.keys['Group'] == g
     Tablef = Datos_L.groups[mask]
+    fil_name = filter_sel(g)[0]
     #n_filtros = len(filter_sel(g))
     n_filtros = len(fil_name)
-    for i in range(len(Tablef)):
-        #fits = fits.open(f'galfitm_output/galfitm_group_{g}.fits')
-        fi = fits.open(f'galfitm_group_{g}.fits')
+    fi = fits.open(f'galfitm_output/galfitm_group_{g}.fits')
+    for i in range(len(Tablef)): 
         Tabla.append(leer_header(i+1, fi[4].header))
-        grafico(fi, g, n_filtros)
-header_names=[]
-header_names.append('CHI2NU')
+        #grafico(fi, g, n_filtros)
 
-for i in range(4):
-    header_names.append(f'XC_{fil_name[i]}')
-    header_names.append(f'e_XC_{fil_name[i]}')
-    header_names.append(f'YC_{fil_name[i]}')
-    header_names.append(f'e_YC_{fil_name[i]}')
-    header_names.append(f'RE_{fil_name[i]}')
-    header_names.append(f'e_RE_{fil_name[i]}')
-    header_names.append(f'MAG_{fil_name[i]}')
-    header_names.append(f'e_MAG_{fil_name[i]}')
-    header_names.append(f'n_{fil_name[i]}')
-    header_names.append(f'e_n_{fil_name[i]}')
-    header_names.append(f'AR_{fil_name[i]}')
-    header_names.append(f'e_AR_{fil_name[i]}')
-    header_names.append(f'PA_{fil_name[i]}')
-    header_names.append(f'e_PA_{fil_name[i]}')
+'''header_names=['CHI2NU']
+all_filters = ['g', 'r', 'i', 'z']
+
+for filt in all_filters:
+    header_names.append(f'XC_{filt}')
+    header_names.append(f'e_XC_{filt}')
+    header_names.append(f'YC_{filt}')
+    header_names.append(f'e_YC_{filt}')
+    header_names.append(f'RE_{filt}')
+    header_names.append(f'e_RE_{filt}')
+    header_names.append(f'MAG_{filt}')
+    header_names.append(f'e_MAG_{filt}')
+    header_names.append(f'n_{filt}')
+    header_names.append(f'e_n_{filt}')
+    header_names.append(f'AR_{filt}')
+    header_names.append(f'e_AR_{filt}')
+    header_names.append(f'PA_{filt}')
+    header_names.append(f'e_PA_{filt}')'''
 
 table = Table(rows=Tabla, names=header_names)
-ascii.write(table, f'GalfitM_output_7.csv', format='csv', fast_writer=False)
+ascii.write(table, f'GalfitM_output_DECALS_SPLUS_17.csv', format='csv', fast_writer=False)
 
 
 

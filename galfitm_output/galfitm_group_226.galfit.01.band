@@ -1,0 +1,108 @@
+
+#  Input menu file: inputs/galfit_226.input
+
+#  Chi^2/nu = 0.700,  Chi^2 = 3918652.733,  Ndof = 5601246
+
+================================================================================
+# IMAGE and GALFIT CONTROL PARAMETERS
+A) /home/seba/Documents/DECALS/joined_bricks/226/226_image_g.fits,/home/seba/Documents/DECALS/joined_bricks/226/226_image_i.fits,/home/seba/Documents/DECALS/joined_bricks/226/226_image_z.fits      # Input data image (FITS file)
+A1) g,i,z              # Band labels
+A2) 4770.00,7625.00,9134.00     # Band wavelengths
+B) galfitm_output/galfitm_group_226.fits      # Output data image block
+C) /home/seba/Documents/DECALS/sigma_image/226/sigma_226_weight_g.fits,/home/seba/Documents/DECALS/sigma_image/226/sigma_226_weight_i.fits,/home/seba/Documents/DECALS/sigma_image/226/sigma_226_weight_z.fits 0.000   # Sigma image and min. sigma factor (made from data if blank or "none") 
+D) Field_Img/psf/psf_group_226_g.fits,Field_Img/psf/psf_group_226_i.fits,Field_Img/psf/psf_group_226_z.fits          # Input PSF image and (optional) diffusion kernel
+E) 1                   # PSF fine sampling factor relative to data 
+F) Field_Img/mask/mask_group_226.fits,Field_Img/mask/mask_group_226.fits,Field_Img/mask/mask_group_226.fits      # Bad pixel mask (FITS image or ASCII coord list)
+G) none                # File with parameter constraints (ASCII file) 
+H) 1    1374 1    1374 # Image region to fit (xmin xmax ymin ymax)
+I) 300    300          # Size of the convolution box (x y)
+J) 22.500,22.500,22.500      # Magnitude photometric zeropoint 
+K) 0.262  0.262        # Plate scale (dx dy)   [arcsec per pixel]
+O) regular             # Display type (regular, curses, both)
+P) 0                   # Choose: 0=optimize, 1=model, 2=imgblock, 3=subcomps
+U) 0 0.750000 25 4 40 0.000000 1.000000  # Non-parametric component settings
+V) 0 0 50 0.800000 0.500000 100000   # MultiNest options
+W) input,model,residual      # Output options
+
+# INITIAL BAND FITTING PARAMETERS
+#
+#   For component type, the allowed functions are: 
+#       sersic, expdisk, edgedisk, devauc, king, nuker, psf, 
+#       gaussian, moffat, ferrer, corser, and sky. 
+#  
+#   Hidden parameters will only appear when they're specified:
+#       Bn (n=integer, Bending Modes).
+#       C0 (diskyness/boxyness), 
+#       Fn (n=integer, Azimuthal Fourier Modes).
+#       R0-R10 (coordinate rotation, for creating spiral structures).
+#       To, Ti, T0-T10 (truncation function).
+# 
+# ------------------------------------------------------------------------------
+#   par)    par value(s)    fit toggle(s)    # parameter description 
+# ------------------------------------------------------------------------------
+
+# Component number: 1
+ 0) sersic                 #  Component type
+ 1) 708.338,708.338,708.338    1,0,0               band #      Position x
+ 2) 775.062,775.062,775.062    1,0,0               band #      Position y
+ 3) 17.563,17.301,17.175    1,1,1               band #  Integrated magnitude 
+ 4) 5.858,7.217,7.935    1,1,0               band #  R_e (effective radius)   [pix]
+ 5) 1.445,1.681,1.805    1,1,0               band #  Sersic index n (de Vaucouleurs n=4) 
+ 6) 0,0,0             0,0,0               band #     ----- 
+ 7) 0,0,0             0,0,0               band #     ----- 
+ 8) 0,0,0             0,0,0               band #     ----- 
+ 9) 0.310,0.310,0.310    1,0,0               band #  Axis ratio (b/a)  
+10) -23.771,-23.771,-23.771    1,0,0               band #  Position angle (PA) [deg: Up=0, Left=90]
+ Z) 0                      #  Skip this model in output image?  (yes=1, no=0)
+
+# Component number: 2
+ 0) sersic                 #  Component type
+ 1) 968.305,968.305,968.305    1,0,0               band #      Position x
+ 2) 754.339,754.339,754.339    1,0,0               band #      Position y
+ 3) 17.632,16.996,16.883    1,1,1               band #  Integrated magnitude 
+ 4) 21.309,17.915,16.121    1,1,0               band #  R_e (effective radius)   [pix]
+ 5) 0.557,0.812,0.947    1,1,0               band #  Sersic index n (de Vaucouleurs n=4) 
+ 6) 0,0,0             0,0,0               band #     ----- 
+ 7) 0,0,0             0,0,0               band #     ----- 
+ 8) 0,0,0             0,0,0               band #     ----- 
+ 9) 0.182,0.182,0.182    1,0,0               band #  Axis ratio (b/a)  
+10) -78.015,-78.015,-78.015    1,0,0               band #  Position angle (PA) [deg: Up=0, Left=90]
+ Z) 0                      #  Skip this model in output image?  (yes=1, no=0)
+
+# Component number: 3
+ 0) sersic                 #  Component type
+ 1) 586.438,586.438,586.438    1,0,0               band #      Position x
+ 2) 656.044,656.044,656.044    1,0,0               band #      Position y
+ 3) 16.887,16.458,16.297    1,1,1               band #  Integrated magnitude 
+ 4) 3.383,4.325,4.822    1,1,0               band #  R_e (effective radius)   [pix]
+ 5) 1.961,1.642,1.474    1,1,0               band #  Sersic index n (de Vaucouleurs n=4) 
+ 6) 0,0,0             0,0,0               band #     ----- 
+ 7) 0,0,0             0,0,0               band #     ----- 
+ 8) 0,0,0             0,0,0               band #     ----- 
+ 9) 0.870,0.870,0.870    1,0,0               band #  Axis ratio (b/a)  
+10) -50.357,-50.357,-50.357    1,0,0               band #  Position angle (PA) [deg: Up=0, Left=90]
+ Z) 0                      #  Skip this model in output image?  (yes=1, no=0)
+
+# Component number: 4
+ 0) sersic                 #  Component type
+ 1) 492.164,492.164,492.164    1,0,0               band #      Position x
+ 2) 559.943,559.943,559.943    1,0,0               band #      Position y
+ 3) 18.066,17.625,17.551    1,1,1               band #  Integrated magnitude 
+ 4) 9.700,8.919,8.506    1,1,0               band #  R_e (effective radius)   [pix]
+ 5) 0.399,0.634,0.759    1,1,0               band #  Sersic index n (de Vaucouleurs n=4) 
+ 6) 0,0,0             0,0,0               band #     ----- 
+ 7) 0,0,0             0,0,0               band #     ----- 
+ 8) 0,0,0             0,0,0               band #     ----- 
+ 9) 0.271,0.271,0.271    1,0,0               band #  Axis ratio (b/a)  
+10) -45.554,-45.554,-45.554    1,0,0               band #  Position angle (PA) [deg: Up=0, Left=90]
+ Z) 0                      #  Skip this model in output image?  (yes=1, no=0)
+
+# Component number: 5
+ 0) sky                    #  Component type
+ 1) 1.674e-04,4.264e-04,4.375e-04    1,0,0               band #  Sky background at center of fitting region [ADUs]
+ 2) 0,0,0             0,0,0               band #  dsky/dx (sky gradient in x)     [ADUs/pix]
+ 3) 0,0,0             0,0,0               band #  dsky/dy (sky gradient in y)     [ADUs/pix]
+ Z) 0                      #  Skip this model in output image?  (yes=1, no=0)
+
+================================================================================
+

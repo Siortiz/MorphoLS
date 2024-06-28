@@ -11,7 +11,8 @@ from astropy.table import *
 from utils import filter_sel, coordenadas
 from ejecutable import L
 import os
- 
+import math
+
 def median_sky(grupo, filtros):
     sk=[]
     for filtro in filtros:
@@ -44,7 +45,7 @@ def galfit_input(GRf, filtros, long):
     #File with parameter constraints (ASCII file)
     G = 'G) none'
     #Image region to fit (xmin xmax ymin ymax)
-    H = 'H) 0 1374 0 1374'
+    H = 'H) 0 1474 0 1474'
     #Size of the convolution box(x, y)
     I = 'I) 300 300'
     #Magnitude photometric zeropoint
@@ -95,6 +96,8 @@ def galfit_input(GRf, filtros, long):
         Data.append('2) '+','.join([str(y)]*num_filtros)+' 1')
         #Magnitudes
         magnitudes = [GRf[f'mag_{filtro}'][i] for filtro in filtros]
+        # Reemplaza valores infinitos por 20
+        magnitudes = [20 if math.isinf(mag) else mag for mag in magnitudes]
         magnitudes_text = ','.join(map(str, magnitudes))
         Data.append('3) '+magnitudes_text+f' {num_filtros}')
         
@@ -137,7 +140,7 @@ Datos_L = L.group_by('Group')
 GL = Datos_L.groups.keys
 
 for g in GL['Group']:
-    if g >= 232:
+    if g == 20:
         filtros = filter_sel(g)[0]
         long = filter_sel(g)[1]
         sex_data = Table.read(f'sex/Galaxies_group_{g}.csv')
