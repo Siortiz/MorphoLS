@@ -62,7 +62,7 @@ def grafico(fits, grupo, n_filtros):
     return
 
 Tabla = []
-header_names = ['Group', 'Gal', 'ID', 'ra', 'dec', 'CHI2NU']
+header_names = ['Group', 'Gal', 'ID', 'ra', 'dec', 'type', 'CHI2NU']
 all_filters = ['g', 'r', 'i', 'z']
 
 for filt in all_filters:
@@ -100,6 +100,7 @@ for g in Grupos['Group']:
             ID = Tablef[i]['objid']
             ra = Tablef[i]['ra']
             dec = Tablef[i]['dec']
+            t = Tablef[i]['type']
             # Leer y añadir datos a la tabla
             header_data = leer_header(i + 1, fi[4].header, fil_name, n_filtros)
             header_data['Group'] = g
@@ -107,6 +108,7 @@ for g in Grupos['Group']:
             header_data['ID'] = ID
             header_data['ra'] = ra
             header_data['dec'] = dec
+            header_data['type'] = t
             Tabla.append(header_data)
             # Generar el gráfico si es necesario
             #grafico(fi, g, n_filtros)
@@ -115,7 +117,7 @@ for g in Grupos['Group']:
         failed_fits.append(g)
 # Crear la tabla final con los datos y los nombres de los headers
 table = Table(rows=Tabla, names=header_names)
-ascii.write(table, 'Output_Catalogs/GalfitM_output_DECALS_SPLUS_17.csv', format='csv', overwrite=True, fast_writer=False)
+ascii.write(table, 'Output_Catalogs/GalfitM_output_DECALS_183.csv', format='csv', overwrite=True, fast_writer=False)
 print(f'Los grupos no ajustados son {failed_fits}')
 print(len(failed_fits))
 
