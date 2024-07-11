@@ -3,7 +3,7 @@ from astropy.io import ascii
 import numpy as np
 import csv
 
-L = Table.read('/home/seba/Documents/MorphoLS/Catalog/GalfitM_sex_DECALS_183.csv')
+L = Table.read('/home/seba/Documents/MorphoLS/Catalog/GalfitM_SPLUS_DECALS_25.csv')
 Datos_L = L.group_by('Group')
 Groups = Datos_L.groups.keys
 
