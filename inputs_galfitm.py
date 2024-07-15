@@ -85,7 +85,7 @@ def galfit_input(GRf, filtros, long):
     Data = [A, A1, A2, B, C, D, E, F, G, H, I, J, K, O, P, U, W]
     X_1=[]
     Y_1=[]
-    for i in range(len(GRf)):
+    for i in range(len(sex_data)):
         Data.append(f'#----------Galaxia ({i})----------')
         Data.append('0) sersic') #Object type
         x = X[i]
@@ -140,7 +140,8 @@ Datos_L = L.group_by('Group')
 GL = Datos_L.groups.keys
 
 for g in GL['Group']:
-    if g == 20:
+    if g == 5:
+        print(g)
         filtros = filter_sel(g)[0]
         long = filter_sel(g)[1]
         sex_data = Table.read(f'sex/Galaxies_group_{g}.csv')

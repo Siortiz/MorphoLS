@@ -10,7 +10,7 @@ import numpy as np
 import astropy.units as u
 import os
 
-#L = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_186.csv')
+#L = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_5.csv')
 Datos_L = L.group_by('Group')
 GL = Datos_L.groups.keys
 #filtros = filter_sel(Datos_L['Group'][0])
@@ -116,13 +116,14 @@ def mask(grupo):
         print('La imagen de detección del grupo {grupo} no existe')
 for g in GL['Group']:
     filtros = filter_sel(g)[0]
-    #mask(g)
-    if g == 270:
-        try:
-            for filtro in filtros:
-                psf_maker(g, filtro)
-        except:
-            print(f'La psf del grupo {g} no pudo ser calculada')
+    print(g)
+    mask(g)
+    #if g == 5:
+        #try:
+        #    for filtro in filtros:
+        #        psf_maker(g, filtro)
+        #except:
+        #    print(f'La psf del grupo {g} no pudo ser calculada')
 
 
 

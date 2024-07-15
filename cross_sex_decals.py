@@ -44,9 +44,10 @@ def crossmatch(grupo):
     combined_table.write(f'sex/Galaxies_group_{grupo}.csv', format='csv', overwrite=True)
     return 
 
-crossmatch(232)
-#for g in Grupos['Group']:
-#    crossmatch(g)
+#crossmatch(5)
+for g in Grupos['Group']:
+    if g != 275:
+        crossmatch(g)
     
 
 
