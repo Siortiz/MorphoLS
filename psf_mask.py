@@ -118,12 +118,12 @@ for g in GL['Group']:
     filtros = filter_sel(g)[0]
     print(g)
     mask(g)
-    #if g == 5:
-        #try:
-        #    for filtro in filtros:
-        #        psf_maker(g, filtro)
-        #except:
-        #    print(f'La psf del grupo {g} no pudo ser calculada')
+    if g <= 1040:
+        try:
+            for filtro in filtros:
+                psf_maker(g, filtro)
+        except:
+            print(f'La psf del grupo {g} no pudo ser calculada')
 
 
 

@@ -10,7 +10,7 @@ GL = Datos_L.groups.keys
         
 
 def img_det(grupo):
-    ruta_base = f'/home/seba/Documents/DECALS/joined_bricks/{grupo}'
+    ruta_base = f'/home/seba/Documents/DECALS/joined_bricks_cs/{grupo}'
     filtros_prioritarios = ['g', 'r', 'z']
     filtros_secundarios = ['i']
     suma_imagen = None
