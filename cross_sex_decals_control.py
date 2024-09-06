@@ -12,7 +12,7 @@ Galaxies = Datos_L.groups.keys
 
 def crossmatch(galaxy):
     sex_catalog = ascii.read(f'sex/galaxy_{galaxy}')
-    galaxies = Table.read(f'Catalog/Galaxies_DECALS_control_sample.csv')
+    galaxies = Table.read(f'Catalog/Galaxies_DECALS_control_sample_low.csv')
 
     #Definición de las variables
     ra_sex = sex_catalog['ALPHA_SKY'].astype(float)
@@ -44,10 +44,10 @@ def crossmatch(galaxy):
     combined_table.write(f'sex/Control_Sample/Galaxy_{galaxy}.csv', format='csv', overwrite=True)
     return 
 
-#crossmatch(5)
+#ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header=None)
+#n = ajustar[0].to_list()
 for g in Galaxies['index']:
-    if g > 1040:
-        crossmatch(g)
+    crossmatch(g)
     
 
 

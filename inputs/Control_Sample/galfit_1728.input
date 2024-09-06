@@ -1,0 +1,33 @@
+A) /home/seba/Documents/DECALS/joined_bricks_cs/1728/1728_image_g.fits,/home/seba/Documents/DECALS/joined_bricks_cs/1728/1728_image_r.fits,/home/seba/Documents/DECALS/joined_bricks_cs/1728/1728_image_i.fits,/home/seba/Documents/DECALS/joined_bricks_cs/1728/1728_image_z.fits
+A1) g,r,i,z
+A2) 4770,6231,7625,9134
+B) galfitm_output/Control_Sample/galfitm_galaxy_1728.fits
+C) /home/seba/Documents/DECALS/sigma_image_cs/1728/sigma_1728_weight_g.fits,/home/seba/Documents/DECALS/sigma_image_cs/1728/sigma_1728_weight_r.fits,/home/seba/Documents/DECALS/sigma_image_cs/1728/sigma_1728_weight_i.fits,/home/seba/Documents/DECALS/sigma_image_cs/1728/sigma_1728_weight_z.fits
+D) Field_Img/psf_cs/psf_galaxy_1728_g.fits,Field_Img/psf_cs/psf_galaxy_1728_r.fits,Field_Img/psf_cs/psf_galaxy_1728_i.fits,Field_Img/psf_cs/psf_galaxy_1728_z.fits
+E) 1
+F) Field_Img/mask_cs/mask_galaxy_1728.fits,Field_Img/mask_cs/mask_galaxy_1728.fits,Field_Img/mask_cs/mask_galaxy_1728.fits,Field_Img/mask_cs/mask_galaxy_1728.fits
+G) none
+H) 0 1145 0 1145
+I) 300 300
+J) 22.5,22.5,22.5,22.5
+K) 0.262 0.262
+O) regular
+P) 0
+U) 0
+W) input,model,residual
+#----------Galaxia (0)----------
+0) sersic
+1) 569.1874,569.1874,569.1874,569.1874 1
+2) 575.6592,575.6592,575.6592,575.6592 1
+3) 21.844685,21.127235,20.785372,20.503962 4
+4) 11.106,11.106,11.106,11.106 2
+5) 3.173142857142857,3.173142857142857,3.173142857142857,3.173142857142857 2
+9) 0.28677946659019216,0.28677946659019216,0.28677946659019216,0.28677946659019216 1
+10) 49.65,49.65,49.65,49.65 1
+Z) 0
+#-------sky-------
+0) sky
+1) 0.00014323805416639352,0.0002028191977667455,0.00038296755836714935,0.0006459337873908086 1
+2) 0.000   0
+3) 0.000   0 
+Z) 0

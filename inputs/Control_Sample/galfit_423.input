@@ -7,7 +7,7 @@ D) Field_Img/psf_cs/psf_galaxy_423_g.fits,Field_Img/psf_cs/psf_galaxy_423_r.fits
 E) 1
 F) Field_Img/mask_cs/mask_galaxy_423.fits,Field_Img/mask_cs/mask_galaxy_423.fits,Field_Img/mask_cs/mask_galaxy_423.fits
 G) none
-H) 0 687 0 687
+H) 0 1145 0 1145
 I) 300 300
 J) 22.5,22.5,22.5
 K) 0.262 0.262
@@ -18,7 +18,7 @@ W) input,model,residual
 Z) 0
 #-------sky-------
 0) sky
-1) 0.00010531931803218682,0.0001873493500626958,0.0002764342580958494 1
+1) 9.482281030586988e-05,0.0001797391584337089,0.0003515731093021254 1
 2) 0.000   0
 3) 0.000   0 
 Z) 0

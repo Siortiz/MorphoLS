@@ -12,7 +12,7 @@ from utils import filter_sel, coordenadas
 from ejecutable import L
 import os
 import math
-
+import pandas as pd
 def median_sky(galaxy, filtros):
     sk=[]
     for filtro in filtros:
@@ -44,12 +44,7 @@ def galfit_input(GRf, filtros, long, size):
     F = 'F) '+','.join([mask]*num_filtros)
     #File with parameter constraints (ASCII file)
     G = 'G) none'
-    #Image region to fit (xmin xmax ymin ymax)
-    for i in range(len(sex_data)):
-        x_min = X[i] - 280
-        x_max = X[i] + 280
-        y_min = Y[i] - 280
-        y_max = Y[i] + 280
+    #Image region to fit
     H = f'H) 0 {size} 0 {size}'
     #Size of the convolution box(x, y)
     I = 'I) 300 300'
@@ -143,9 +138,9 @@ def galfit_input(GRf, filtros, long, size):
 #L = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_186.csv')
 Datos_L = L.group_by('index')
 GL = Datos_L.groups.keys
-
+#ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header=None)
+#n = ajustar[0].to_list()
 for g in GL['index']:
-    #print(g)
     with fits.open(f'/home/seba/Documents/DECALS/joined_bricks_cs/{g}/{g}_image_g.fits') as hdul:
         size = hdul[0].data.shape[0]
     filtros = filter_sel(g)[0]
