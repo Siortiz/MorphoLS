@@ -1,7 +1,7 @@
 
 #  Input menu file: inputs/Control_Sample/galfit_1298.input
 
-#  Chi^2/nu = 0.253,  Chi^2 = 78179.948,  Ndof = 308839
+#  Chi^2/nu = 0.361,  Chi^2 = 644375.025,  Ndof = 1783999
 
 ================================================================================
 # IMAGE and GALFIT CONTROL PARAMETERS
@@ -14,7 +14,7 @@ D) Field_Img/psf_cs/psf_galaxy_1298_g.fits,Field_Img/psf_cs/psf_galaxy_1298_r.fi
 E) 1                   # PSF fine sampling factor relative to data 
 F) Field_Img/mask_cs/mask_galaxy_1298.fits,Field_Img/mask_cs/mask_galaxy_1298.fits,Field_Img/mask_cs/mask_galaxy_1298.fits,Field_Img/mask_cs/mask_galaxy_1298.fits      # Bad pixel mask (FITS image or ASCII coord list)
 G) none                # File with parameter constraints (ASCII file) 
-H) 1    280  1    280  # Image region to fit (xmin xmax ymin ymax)
+H) 1    687  1    687  # Image region to fit (xmin xmax ymin ymax)
 I) 300    300          # Size of the convolution box (x y)
 J) 22.500,22.500,22.500,22.500      # Magnitude photometric zeropoint 
 K) 0.262  0.262        # Plate scale (dx dy)   [arcsec per pixel]
@@ -43,21 +43,21 @@ W) input,model,residual      # Output options
 
 # Component number: 1
  0) sersic                 #  Component type
- 1) 758.647,0,-2.842e-14,-5.684e-14    1,0,0,0             cheb #      Position x
- 2) 760.041,2.842e-14,-4.263e-14,-7.105e-14    1,0,0,0             cheb #      Position y
- 3) 25.024,-4.510,1.745,-0.469    1,1,1,1             cheb #  Integrated magnitude 
- 4) 4.218,-1.423,0,0    1,1,0,0             cheb #  R_e (effective radius)   [pix]
- 5) 2.032,-0.197,0,0    1,1,0,0             cheb #  Sersic index n (de Vaucouleurs n=4) 
+ 1) 344.237,2.842e-14,-2.842e-14,-7.105e-14    1,0,0,0             cheb #      Position x
+ 2) 343.912,2.842e-14,-4.263e-14,-5.684e-14    1,0,0,0             cheb #      Position y
+ 3) 17.293,-0.486,0.142,-8.457e-03    1,1,1,1             cheb #  Integrated magnitude 
+ 4) 15.511,-0.954,0,0    1,1,0,0             cheb #  R_e (effective radius)   [pix]
+ 5) 1.266,0.321,0,0    1,1,0,0             cheb #  Sersic index n (de Vaucouleurs n=4) 
  6) 0,0,0,0           0,0,0,0             cheb #     ----- 
  7) 0,0,0,0           0,0,0,0             cheb #     ----- 
  8) 0,0,0,0           0,0,0,0             cheb #     ----- 
- 9) 0.914,5.551e-17,-1.110e-16,-1.943e-16    1,0,0,0             cheb #  Axis ratio (b/a)  
-10) 22.933,3.553e-15,-7.105e-15,-1.243e-14    1,0,0,0             cheb #  Position angle (PA) [deg: Up=0, Left=90]
+ 9) 0.679,0,-5.551e-17,-1.943e-16    1,0,0,0             cheb #  Axis ratio (b/a)  
+10) 7.946,8.882e-16,-1.332e-15,-2.220e-15    1,0,0,0             cheb #  Position angle (PA) [deg: Up=0, Left=90]
  Z) 0                      #  Skip this model in output image?  (yes=1, no=0)
 
 # Component number: 2
  0) sky                    #  Component type
- 1) 2.666e-04,2.025e-04,2.255e-05,-3.164e-06    1,0,0,0             cheb #  Sky background at center of fitting region [ADUs]
+ 1) 1.137e-04,1.339e-04,-5.697e-06,1.881e-06    1,0,0,0             cheb #  Sky background at center of fitting region [ADUs]
  2) 0,0,0,0           0,0,0,0             cheb #  dsky/dx (sky gradient in x)     [ADUs/pix]
  3) 0,0,0,0           0,0,0,0             cheb #  dsky/dy (sky gradient in y)     [ADUs/pix]
  Z) 0                      #  Skip this model in output image?  (yes=1, no=0)

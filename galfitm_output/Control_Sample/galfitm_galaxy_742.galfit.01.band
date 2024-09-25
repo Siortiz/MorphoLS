@@ -1,22 +1,22 @@
 
 #  Input menu file: inputs/Control_Sample/galfit_742.input
 
-#  Chi^2/nu = 0.578,  Chi^2 = 85654.874,  Ndof = 148314
+#  Chi^2/nu = 0.436,  Chi^2 = 767754.935,  Ndof = 1759387
 
 ================================================================================
 # IMAGE and GALFIT CONTROL PARAMETERS
-A) /home/seba/Documents/DECALS/joined_bricks_cs/742/742_image_g.fits,/home/seba/Documents/DECALS/joined_bricks_cs/742/742_image_r.fits,/home/seba/Documents/DECALS/joined_bricks_cs/742/742_image_z.fits      # Input data image (FITS file)
-A1) g,r,z              # Band labels
-A2) 4770.00,6231.00,9134.00     # Band wavelengths
+A) /home/seba/Documents/DECALS/joined_bricks_cs/742/742_image_g.fits,/home/seba/Documents/DECALS/joined_bricks_cs/742/742_image_r.fits,/home/seba/Documents/DECALS/joined_bricks_cs/742/742_image_i.fits,/home/seba/Documents/DECALS/joined_bricks_cs/742/742_image_z.fits      # Input data image (FITS file)
+A1) g,r,i,z            # Band labels
+A2) 4770.00,6231.00,7625.00,9134.00     # Band wavelengths
 B) galfitm_output/Control_Sample/galfitm_galaxy_742.fits      # Output data image block
-C) /home/seba/Documents/DECALS/sigma_image_cs/742/sigma_742_weight_g.fits,/home/seba/Documents/DECALS/sigma_image_cs/742/sigma_742_weight_r.fits,/home/seba/Documents/DECALS/sigma_image_cs/742/sigma_742_weight_z.fits 0.000   # Sigma image and min. sigma factor (made from data if blank or "none") 
-D) Field_Img/psf_cs/psf_galaxy_742_g.fits,Field_Img/psf_cs/psf_galaxy_742_r.fits,Field_Img/psf_cs/psf_galaxy_742_z.fits          # Input PSF image and (optional) diffusion kernel
+C) /home/seba/Documents/DECALS/sigma_image_cs/742/sigma_742_weight_g.fits,/home/seba/Documents/DECALS/sigma_image_cs/742/sigma_742_weight_r.fits,/home/seba/Documents/DECALS/sigma_image_cs/742/sigma_742_weight_i.fits,/home/seba/Documents/DECALS/sigma_image_cs/742/sigma_742_weight_z.fits 0.000   # Sigma image and min. sigma factor (made from data if blank or "none") 
+D) Field_Img/psf_cs/psf_galaxy_742_g.fits,Field_Img/psf_cs/psf_galaxy_742_r.fits,Field_Img/psf_cs/psf_galaxy_742_i.fits,Field_Img/psf_cs/psf_galaxy_742_z.fits          # Input PSF image and (optional) diffusion kernel
 E) 1                   # PSF fine sampling factor relative to data 
-F) Field_Img/mask_cs/mask_galaxy_742.fits,Field_Img/mask_cs/mask_galaxy_742.fits,Field_Img/mask_cs/mask_galaxy_742.fits      # Bad pixel mask (FITS image or ASCII coord list)
+F) Field_Img/mask_cs/mask_galaxy_742.fits,Field_Img/mask_cs/mask_galaxy_742.fits,Field_Img/mask_cs/mask_galaxy_742.fits,Field_Img/mask_cs/mask_galaxy_742.fits      # Bad pixel mask (FITS image or ASCII coord list)
 G) none                # File with parameter constraints (ASCII file) 
-H) 1    229  1    229  # Image region to fit (xmin xmax ymin ymax)
+H) 1    687  1    687  # Image region to fit (xmin xmax ymin ymax)
 I) 300    300          # Size of the convolution box (x y)
-J) 22.500,22.500,22.500      # Magnitude photometric zeropoint 
+J) 22.500,22.500,22.500,22.500      # Magnitude photometric zeropoint 
 K) 0.262  0.262        # Plate scale (dx dy)   [arcsec per pixel]
 O) regular             # Display type (regular, curses, both)
 P) 0                   # Choose: 0=optimize, 1=model, 2=imgblock, 3=subcomps
@@ -43,23 +43,23 @@ W) input,model,residual      # Output options
 
 # Component number: 1
  0) sersic                 #  Component type
- 1) 115.367,115.367,115.367    1,0,0               band #      Position x
- 2) 114.954,114.954,114.954    1,0,0               band #      Position y
- 3) 17.933,16.908,16.256    1,1,1               band #  Integrated magnitude 
- 4) 14.503,13.950,12.851    1,1,0               band #  R_e (effective radius)   [pix]
- 5) 2.901,3.558,4.864    1,1,0               band #  Sersic index n (de Vaucouleurs n=4) 
- 6) 0,0,0             0,0,0               band #     ----- 
- 7) 0,0,0             0,0,0               band #     ----- 
- 8) 0,0,0             0,0,0               band #     ----- 
- 9) 0.893,0.893,0.893    1,0,0               band #  Axis ratio (b/a)  
-10) -83.654,-83.654,-83.654    1,0,0               band #  Position angle (PA) [deg: Up=0, Left=90]
+ 1) 343.375,343.375,343.375,343.375    1,0,0,0             band #      Position x
+ 2) 344.459,344.459,344.459,344.459    1,0,0,0             band #      Position y
+ 3) 17.601,16.954,16.669,16.501    1,1,1,1             band #  Integrated magnitude 
+ 4) 12.744,11.774,10.848,9.847    1,1,0,0             band #  R_e (effective radius)   [pix]
+ 5) 1.844,2.024,2.196,2.382    1,1,0,0             band #  Sersic index n (de Vaucouleurs n=4) 
+ 6) 0,0,0,0           0,0,0,0             band #     ----- 
+ 7) 0,0,0,0           0,0,0,0             band #     ----- 
+ 8) 0,0,0,0           0,0,0,0             band #     ----- 
+ 9) 0.444,0.444,0.444,0.444    1,0,0,0             band #  Axis ratio (b/a)  
+10) -56.139,-56.139,-56.139,-56.139    1,0,0,0             band #  Position angle (PA) [deg: Up=0, Left=90]
  Z) 0                      #  Skip this model in output image?  (yes=1, no=0)
 
 # Component number: 2
  0) sky                    #  Component type
- 1) -1.918e-04,2.110e-04,1.385e-03    1,0,0               band #  Sky background at center of fitting region [ADUs]
- 2) 0,0,0             0,0,0               band #  dsky/dx (sky gradient in x)     [ADUs/pix]
- 3) 0,0,0             0,0,0               band #  dsky/dy (sky gradient in y)     [ADUs/pix]
+ 1) 1.166e-05,9.893e-05,2.181e-04,4.054e-04    1,0,0,0             band #  Sky background at center of fitting region [ADUs]
+ 2) 0,0,0,0           0,0,0,0             band #  dsky/dx (sky gradient in x)     [ADUs/pix]
+ 3) 0,0,0,0           0,0,0,0             band #  dsky/dy (sky gradient in y)     [ADUs/pix]
  Z) 0                      #  Skip this model in output image?  (yes=1, no=0)
 
 ================================================================================

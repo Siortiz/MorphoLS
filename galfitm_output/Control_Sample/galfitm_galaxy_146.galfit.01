@@ -1,7 +1,7 @@
 
 #  Input menu file: inputs/Control_Sample/galfit_146.input
 
-#  Chi^2/nu = 33.055,  Chi^2 = 59971220.280,  Ndof = 1814271
+#  Chi^2/nu = 1.127,  Chi^2 = 1657223.049,  Ndof = 1470771
 
 ================================================================================
 # IMAGE and GALFIT CONTROL PARAMETERS
@@ -42,22 +42,8 @@ W) input,model,residual      # Output options
 # ------------------------------------------------------------------------------
 
 # Component number: 1
- 0) sersic                 #  Component type
- 1) 343.316,2.842e-14,-4.263e-14,-7.105e-14    1,0,0,0             cheb #      Position x
- 2) 344.078,0,-4.263e-14,-7.105e-14    1,0,0,0             cheb #      Position y
- 3) 18.702,-0.240,0.624,0.860    1,1,1,1             cheb #  Integrated magnitude 
- 4) 8.791,-6.473e-03,0,0    1,1,0,0             cheb #  R_e (effective radius)   [pix]
- 5) 2.515,2.779e-03,0,0    1,1,0,0             cheb #  Sersic index n (de Vaucouleurs n=4) 
- 6) 0,0,0,0           0,0,0,0             cheb #     ----- 
- 7) 0,0,0,0           0,0,0,0             cheb #     ----- 
- 8) 0,0,0,0           0,0,0,0             cheb #     ----- 
- 9) 3.524e-02,2.776e-17,-2.776e-17,-6.939e-17    1,0,0,0             cheb #  Axis ratio (b/a)  
-10) -71.362,-7.105e-15,7.105e-15,1.599e-14    1,0,0,0             cheb #  Position angle (PA) [deg: Up=0, Left=90]
- Z) 0                      #  Skip this model in output image?  (yes=1, no=0)
-
-# Component number: 2
  0) sky                    #  Component type
- 1) 2.917e-04,1.346e-04,4.967e-05,7.589e-05    1,0,0,0             cheb #  Sky background at center of fitting region [ADUs]
+ 1) 1.572e-03,7.791e-04,6.452e-04,9.106e-04    1,0,0,0             cheb #  Sky background at center of fitting region [ADUs]
  2) 0,0,0,0           0,0,0,0             cheb #  dsky/dx (sky gradient in x)     [ADUs/pix]
  3) 0,0,0,0           0,0,0,0             cheb #  dsky/dy (sky gradient in y)     [ADUs/pix]
  Z) 0                      #  Skip this model in output image?  (yes=1, no=0)

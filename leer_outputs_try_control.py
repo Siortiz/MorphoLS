@@ -10,7 +10,7 @@ import os
 import re
 from astropy.table import Table
 from utils import filter_sel
-from ejecutable import L
+#from ejecutable import L
 
 #fil_name = np.array(['g', 'r', 'i', 'z'])
 
@@ -81,14 +81,14 @@ for filt in all_filters:
     header_names.append(f'PA_{filt}')
     header_names.append(f'e_PA_{filt}')
     
-#L_galaxies = Table.read('/home/seba/Documents/MorphoLS/Catalog/Galaxies_DECALS_control_sample.csv')
-#no_ajustados = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header=None)
-#n = no_ajustados[0].to_list()
+L_galaxies = Table.read('/home/seba/Documents/MorphoLS/Catalog/Galaxies_Control_Sample.csv')
+no_ajustados = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header=None)
+n = no_ajustados[0].to_list()
 # Filtrar los elementos que NO están en la lista n
-#L_filt = L_galaxies[~np.isin(L_galaxies['index'], n)]
+L_filt = L_galaxies[~np.isin(L_galaxies['index'], n)]
 
 # Filtrar los elementos que son menores o iguales a 740
-#L = L_filt[L_filt['index'] <= 740]
+L = L_filt[L_filt['index'] <= 1300]
 #print(L)
 Datos_L = L.group_by('index')
 Grupos = Datos_L.groups.keys
@@ -126,7 +126,7 @@ for g in Grupos['index']:
     
 # Crear la tabla final con los datos y los nombres de los headers
 table = Table(rows=Tabla, names=header_names)
-ascii.write(table, '/home/seba/Documents/MorphoLS/GalfitM_Output_Control_Sample_low.csv', format='csv', overwrite=True, fast_writer=False)
+ascii.write(table, '/home/seba/Documents/MorphoLS/GalfitM_Output_Control_Sample_good_1300.csv', format='csv', overwrite=True, fast_writer=False)
 print(f'Los grupos no ajustados son {failed_fits}')
 print(len(failed_fits))
 

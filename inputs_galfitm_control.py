@@ -138,16 +138,17 @@ def galfit_input(GRf, filtros, long, size):
 #L = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_186.csv')
 Datos_L = L.group_by('index')
 GL = Datos_L.groups.keys
-#ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header=None)
-#n = ajustar[0].to_list()
+ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos_2.txt', header=None)
+n = ajustar[0].to_list()
 for g in GL['index']:
-    with fits.open(f'/home/seba/Documents/DECALS/joined_bricks_cs/{g}/{g}_image_g.fits') as hdul:
-        size = hdul[0].data.shape[0]
-    filtros = filter_sel(g)[0]
-    long = filter_sel(g)[1]
-    sex_data = Table.read(f'sex/Control_Sample/Galaxy_{g}.csv')
-    X = sex_data['X_IMAGE']
-    Y = sex_data['Y_IMAGE']
-    mask = Datos_L.groups.keys['index'] == g
-    GRf = Datos_L.groups[mask]
-    X_1, Y_1 = galfit_input(GRf,filtros,long, size) 
+    if g > 1300 and g not in n:
+        with fits.open(f'/home/seba/Documents/DECALS/joined_bricks_cs/{g}/{g}_image_g.fits') as hdul:
+            size = hdul[0].data.shape[0]
+        filtros = filter_sel(g)[0]
+        long = filter_sel(g)[1]
+        sex_data = Table.read(f'sex/Control_Sample/Galaxy_{g}.csv')
+        X = sex_data['X_IMAGE']
+        Y = sex_data['Y_IMAGE']
+        mask = Datos_L.groups.keys['index'] == g
+        GRf = Datos_L.groups[mask]
+        X_1, Y_1 = galfit_input(GRf,filtros,long, size) 

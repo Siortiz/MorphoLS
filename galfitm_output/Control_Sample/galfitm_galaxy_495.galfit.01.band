@@ -1,7 +1,7 @@
 
 #  Input menu file: inputs/Control_Sample/galfit_495.input
 
-#  Chi^2/nu = 0.353,  Chi^2 = 630428.389,  Ndof = 1786359
+#  Chi^2/nu = 0.897,  Chi^2 = 1558931.607,  Ndof = 1738579
 
 ================================================================================
 # IMAGE and GALFIT CONTROL PARAMETERS
@@ -43,21 +43,21 @@ W) input,model,residual      # Output options
 
 # Component number: 1
  0) sersic                 #  Component type
- 1) 344.352,344.352,344.352,344.352    1,0,0,0             band #      Position x
- 2) 344.040,344.040,344.040,344.040    1,0,0,0             band #      Position y
- 3) 17.705,17.530,17.204,17.243    1,1,1,1             band #  Integrated magnitude 
- 4) 4.798,4.737,4.678,4.616    1,1,0,0             band #  R_e (effective radius)   [pix]
- 5) 1.533,1.832,2.118,2.428    1,1,0,0             band #  Sersic index n (de Vaucouleurs n=4) 
+ 1) 345.086,345.086,345.086,345.086    1,0,0,0             band #      Position x
+ 2) 344.416,344.416,344.416,344.416    1,0,0,0             band #      Position y
+ 3) 17.805,17.594,17.482,17.426    1,1,1,1             band #  Integrated magnitude 
+ 4) 7.965,7.880,7.798,7.710    1,1,0,0             band #  R_e (effective radius)   [pix]
+ 5) 0.885,0.956,1.023,1.096    1,1,0,0             band #  Sersic index n (de Vaucouleurs n=4) 
  6) 0,0,0,0           0,0,0,0             band #     ----- 
  7) 0,0,0,0           0,0,0,0             band #     ----- 
  8) 0,0,0,0           0,0,0,0             band #     ----- 
- 9) 0.954,0.954,0.954,0.954    1,0,0,0             band #  Axis ratio (b/a)  
-10) -24.926,-24.926,-24.926,-24.926    1,0,0,0             band #  Position angle (PA) [deg: Up=0, Left=90]
+ 9) 0.754,0.754,0.754,0.754    1,0,0,0             band #  Axis ratio (b/a)  
+10) 84.338,84.338,84.338,84.338    1,0,0,0             band #  Position angle (PA) [deg: Up=0, Left=90]
  Z) 0                      #  Skip this model in output image?  (yes=1, no=0)
 
 # Component number: 2
  0) sky                    #  Component type
- 1) 2.357e-05,4.345e-05,2.478e-04,3.464e-04    1,0,0,0             band #  Sky background at center of fitting region [ADUs]
+ 1) 6.227e-05,2.411e-04,1.912e-04,3.043e-04    1,0,0,0             band #  Sky background at center of fitting region [ADUs]
  2) 0,0,0,0           0,0,0,0             band #  dsky/dx (sky gradient in x)     [ADUs/pix]
  3) 0,0,0,0           0,0,0,0             band #  dsky/dy (sky gradient in y)     [ADUs/pix]
  Z) 0                      #  Skip this model in output image?  (yes=1, no=0)

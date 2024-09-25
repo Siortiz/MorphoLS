@@ -124,15 +124,17 @@ galaxias_no_psf = []
     #print(a)
 #print(new_try_list)
 for g in GL['index']:
-    filtros = filter_sel(g)[0]
-    print(g)
-    mask(g)
-    for filtro in filtros:
-        try:
-            psf_maker(g, filtro)
-        except:
-            galaxias_no_psf.append(g)    
-            print(f'La psf de la galaxia {g} no pudo ser calculada')
+    if g > 1300:
+        filtros = filter_sel(g)[0]
+        print(g)
+        mask(g)
+        for filtro in filtros:
+            try:
+                psf_maker(g, filtro)
+            except:
+                if g not in galaxias_no_psf:
+                    galaxias_no_psf.append(g)    
+                    print(f'La psf de la galaxia {g} no pudo ser calculada')
 print(galaxias_no_psf)
 
 

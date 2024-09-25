@@ -1,7 +1,7 @@
 
 #  Input menu file: inputs/Control_Sample/galfit_546.input
 
-#  Chi^2/nu = 0.426,  Chi^2 = 733501.269,  Ndof = 1722655
+#  Chi^2/nu = 0.597,  Chi^2 = 1043923.637,  Ndof = 1747255
 
 ================================================================================
 # IMAGE and GALFIT CONTROL PARAMETERS
@@ -43,21 +43,21 @@ W) input,model,residual      # Output options
 
 # Component number: 1
  0) sersic                 #  Component type
- 1) 343.688,2.842e-14,-4.263e-14,-7.105e-14    1,0,0,0             cheb #      Position x
- 2) 343.602,2.842e-14,-4.263e-14,-7.105e-14    1,0,0,0             cheb #      Position y
- 3) 17.258,-0.713,0.186,-3.301e-02    1,1,1,1             cheb #  Integrated magnitude 
- 4) 15.823,-2.345,0,0    1,1,0,0             cheb #  R_e (effective radius)   [pix]
- 5) 4.050,1.067,0,0    1,1,0,0             cheb #  Sersic index n (de Vaucouleurs n=4) 
+ 1) 344.307,0,-4.263e-14,-7.105e-14    1,0,0,0             cheb #      Position x
+ 2) 344.185,0,-2.842e-14,-7.105e-14    1,0,0,0             cheb #      Position y
+ 3) 16.804,-0.606,0.159,-4.327e-02    1,1,1,1             cheb #  Integrated magnitude 
+ 4) 6.471,0.428,0,0    1,1,0,0             cheb #  R_e (effective radius)   [pix]
+ 5) 3.603,0.655,0,0    1,1,0,0             cheb #  Sersic index n (de Vaucouleurs n=4) 
  6) 0,0,0,0           0,0,0,0             cheb #     ----- 
  7) 0,0,0,0           0,0,0,0             cheb #     ----- 
  8) 0,0,0,0           0,0,0,0             cheb #     ----- 
- 9) 0.189,5.551e-17,-2.776e-17,-5.551e-17    1,0,0,0             cheb #  Axis ratio (b/a)  
-10) 6.939,0,-4.441e-16,-1.554e-15    1,0,0,0             cheb #  Position angle (PA) [deg: Up=0, Left=90]
+ 9) 0.626,0,-1.110e-16,-1.110e-16    1,0,0,0             cheb #  Axis ratio (b/a)  
+10) -82.548,-1.421e-14,1.066e-14,1.776e-14    1,0,0,0             cheb #  Position angle (PA) [deg: Up=0, Left=90]
  Z) 0                      #  Skip this model in output image?  (yes=1, no=0)
 
 # Component number: 2
  0) sky                    #  Component type
- 1) 4.202e-04,3.930e-04,5.140e-05,2.039e-05    1,0,0,0             cheb #  Sky background at center of fitting region [ADUs]
+ 1) 1.473e-04,1.724e-04,5.301e-05,2.329e-05    1,0,0,0             cheb #  Sky background at center of fitting region [ADUs]
  2) 0,0,0,0           0,0,0,0             cheb #  dsky/dx (sky gradient in x)     [ADUs/pix]
  3) 0,0,0,0           0,0,0,0             cheb #  dsky/dy (sky gradient in y)     [ADUs/pix]
  Z) 0                      #  Skip this model in output image?  (yes=1, no=0)

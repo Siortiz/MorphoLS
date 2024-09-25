@@ -1,7 +1,7 @@
 
 #  Input menu file: inputs/Control_Sample/galfit_1122.input
 
-#  Chi^2/nu = 0.480,  Chi^2 = 145167.673,  Ndof = 302651
+#  Chi^2/nu = 0.559,  Chi^2 = 1002051.161,  Ndof = 1793291
 
 ================================================================================
 # IMAGE and GALFIT CONTROL PARAMETERS
@@ -14,7 +14,7 @@ D) Field_Img/psf_cs/psf_galaxy_1122_g.fits,Field_Img/psf_cs/psf_galaxy_1122_r.fi
 E) 1                   # PSF fine sampling factor relative to data 
 F) Field_Img/mask_cs/mask_galaxy_1122.fits,Field_Img/mask_cs/mask_galaxy_1122.fits,Field_Img/mask_cs/mask_galaxy_1122.fits,Field_Img/mask_cs/mask_galaxy_1122.fits      # Bad pixel mask (FITS image or ASCII coord list)
 G) none                # File with parameter constraints (ASCII file) 
-H) 1    280  1    280  # Image region to fit (xmin xmax ymin ymax)
+H) 1    687  1    687  # Image region to fit (xmin xmax ymin ymax)
 I) 300    300          # Size of the convolution box (x y)
 J) 22.500,22.500,22.500,22.500      # Magnitude photometric zeropoint 
 K) 0.262  0.262        # Plate scale (dx dy)   [arcsec per pixel]
@@ -43,21 +43,21 @@ W) input,model,residual      # Output options
 
 # Component number: 1
  0) sersic                 #  Component type
- 1) -20531.871,-20531.871,-20531.871,-20531.871    1,0,0,0             band #      Position x
- 2) 41182.724,41182.724,41182.724,41182.724    1,0,0,0             band #      Position y
- 3) 235.231,71.698,37.572,28.956    1,1,1,1             band #  Integrated magnitude 
- 4) 11.041,11.041,11.041,11.041    1,1,0,0             band #  R_e (effective radius)   [pix]
- 5) 0.984,2.077,3.119,4.247    1,1,0,0             band #  Sersic index n (de Vaucouleurs n=4) 
+ 1) 343.989,343.989,343.989,343.989    1,0,0,0             band #      Position x
+ 2) 344.529,344.529,344.529,344.529    1,0,0,0             band #      Position y
+ 3) 16.516,15.693,15.304,15.026    1,1,1,1             band #  Integrated magnitude 
+ 4) 16.347,16.029,15.726,15.398    1,1,0,0             band #  R_e (effective radius)   [pix]
+ 5) 0.843,1.076,1.298,1.538    1,1,0,0             band #  Sersic index n (de Vaucouleurs n=4) 
  6) 0,0,0,0           0,0,0,0             band #     ----- 
  7) 0,0,0,0           0,0,0,0             band #     ----- 
  8) 0,0,0,0           0,0,0,0             band #     ----- 
- 9) 0.423,0.423,0.423,0.423    1,0,0,0             band #  Axis ratio (b/a)  
-10) -83.785,-83.785,-83.785,-83.785    1,0,0,0             band #  Position angle (PA) [deg: Up=0, Left=90]
+ 9) 0.382,0.382,0.382,0.382    1,0,0,0             band #  Axis ratio (b/a)  
+10) -5.033,-5.033,-5.033,-5.033    1,0,0,0             band #  Position angle (PA) [deg: Up=0, Left=90]
  Z) 0                      #  Skip this model in output image?  (yes=1, no=0)
 
 # Component number: 2
  0) sky                    #  Component type
- 1) 7.318e-05,1.936e-04,2.771e-04,5.259e-04    1,0,0,0             band #  Sky background at center of fitting region [ADUs]
+ 1) -9.278e-06,1.797e-04,1.711e-04,3.879e-04    1,0,0,0             band #  Sky background at center of fitting region [ADUs]
  2) 0,0,0,0           0,0,0,0             band #  dsky/dx (sky gradient in x)     [ADUs/pix]
  3) 0,0,0,0           0,0,0,0             band #  dsky/dy (sky gradient in y)     [ADUs/pix]
  Z) 0                      #  Skip this model in output image?  (yes=1, no=0)

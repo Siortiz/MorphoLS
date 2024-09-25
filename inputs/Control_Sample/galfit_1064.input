@@ -1,15 +1,15 @@
-A) /home/seba/Documents/DECALS/joined_bricks_cs/1064/1064_image_g.fits,/home/seba/Documents/DECALS/joined_bricks_cs/1064/1064_image_r.fits,/home/seba/Documents/DECALS/joined_bricks_cs/1064/1064_image_i.fits,/home/seba/Documents/DECALS/joined_bricks_cs/1064/1064_image_z.fits
-A1) g,r,i,z
-A2) 4770,6231,7625,9134
+A) /home/seba/Documents/DECALS/joined_bricks_cs/1064/1064_image_g.fits,/home/seba/Documents/DECALS/joined_bricks_cs/1064/1064_image_r.fits,/home/seba/Documents/DECALS/joined_bricks_cs/1064/1064_image_z.fits
+A1) g,r,z
+A2) 4770,6231,9134
 B) galfitm_output/Control_Sample/galfitm_galaxy_1064.fits
-C) /home/seba/Documents/DECALS/sigma_image_cs/1064/sigma_1064_weight_g.fits,/home/seba/Documents/DECALS/sigma_image_cs/1064/sigma_1064_weight_r.fits,/home/seba/Documents/DECALS/sigma_image_cs/1064/sigma_1064_weight_i.fits,/home/seba/Documents/DECALS/sigma_image_cs/1064/sigma_1064_weight_z.fits
-D) Field_Img/psf_cs/psf_galaxy_1064_g.fits,Field_Img/psf_cs/psf_galaxy_1064_r.fits,Field_Img/psf_cs/psf_galaxy_1064_i.fits,Field_Img/psf_cs/psf_galaxy_1064_z.fits
+C) /home/seba/Documents/DECALS/sigma_image_cs/1064/sigma_1064_weight_g.fits,/home/seba/Documents/DECALS/sigma_image_cs/1064/sigma_1064_weight_r.fits,/home/seba/Documents/DECALS/sigma_image_cs/1064/sigma_1064_weight_z.fits
+D) Field_Img/psf_cs/psf_galaxy_1064_g.fits,Field_Img/psf_cs/psf_galaxy_1064_r.fits,Field_Img/psf_cs/psf_galaxy_1064_z.fits
 E) 1
-F) Field_Img/mask_cs/mask_galaxy_1064.fits,Field_Img/mask_cs/mask_galaxy_1064.fits,Field_Img/mask_cs/mask_galaxy_1064.fits,Field_Img/mask_cs/mask_galaxy_1064.fits
+F) Field_Img/mask_cs/mask_galaxy_1064.fits,Field_Img/mask_cs/mask_galaxy_1064.fits,Field_Img/mask_cs/mask_galaxy_1064.fits
 G) none
 H) 0 687 0 687
 I) 300 300
-J) 22.5,22.5,22.5,22.5
+J) 22.5,22.5,22.5
 K) 0.262 0.262
 O) regular
 P) 0
@@ -17,17 +17,17 @@ U) 0
 W) input,model,residual
 #----------Galaxia (0)----------
 0) sersic
-1) 343.9082,343.9082,343.9082,343.9082 1
-2) 344.2603,344.2603,344.2603,344.2603 1
-3) 17.782219,17.326101,17.05963,16.95539 4
-4) 12.859,12.859,12.859,12.859 2
-5) 3.674,3.674,3.674,3.674 2
-9) 0.9276437847866419,0.9276437847866419,0.9276437847866419,0.9276437847866419 1
-10) 49.32,49.32,49.32,49.32 1
+1) 343.1451,343.1451,343.1451 1
+2) 344.5,344.5,344.5 1
+3) 18.214497,17.63026,17.148418 3
+4) 6.316,6.316,6.316 2
+5) 1.8045714285714285,1.8045714285714285,1.8045714285714285 2
+9) 0.7189072609633357,0.7189072609633357,0.7189072609633357 1
+10) -48.53,-48.53,-48.53 1
 Z) 0
 #-------sky-------
 0) sky
-1) 0.00018565049222017221,0.00015283991810705738,0.0003824062948952205,0.0006153205705560176 1
+1) 9.488356350329845e-05,0.0003621424424268653,0.0005635871975148863 1
 2) 0.000   0
 3) 0.000   0 
 Z) 0
