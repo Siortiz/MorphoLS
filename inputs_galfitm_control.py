@@ -138,10 +138,10 @@ def galfit_input(GRf, filtros, long, size):
 #L = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_186.csv')
 Datos_L = L.group_by('index')
 GL = Datos_L.groups.keys
-ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos_2.txt', header=None)
+ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header=None)
 n = ajustar[0].to_list()
 for g in GL['index']:
-    if g > 1300 and g not in n:
+    if g in n and g > 204:
         with fits.open(f'/home/seba/Documents/DECALS/joined_bricks_cs/{g}/{g}_image_g.fits') as hdul:
             size = hdul[0].data.shape[0]
         filtros = filter_sel(g)[0]

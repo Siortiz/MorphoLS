@@ -44,10 +44,10 @@ def crossmatch(galaxy):
     combined_table.write(f'sex/Control_Sample/Galaxy_{galaxy}.csv', format='csv', overwrite=True)
     return 
 
-#ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header=None)
-#n = ajustar[0].to_list()
+ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header=None)
+n = ajustar[0].to_list()
 for g in Galaxies['index']:
-    if g > 1300:
+    if g in n:
         crossmatch(g)
     
 

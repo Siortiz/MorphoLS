@@ -56,15 +56,15 @@ def fwhm(GR, filtros):
     mean_fwhm = np.mean(psfsize)
     return mean_fwhm
 Data=[]
-#ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header = None)
-#n = ajustar[0].to_list()
+ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header = None)
+n = ajustar[0].to_list()
 for g in GL['index']:
-    if g > 1300:
-        try:
-            img_det(g)
-            print(f'Galaxia {g}')
-        except:
-            print(f'No se pudo crear la imagen de detección de la galaxia {g}')
+    if g in n:
+        #try:
+        #    img_det(g)
+        #    print(f'Galaxia {g}')
+        #except Exception as e:
+        #    print(f'No se pudo crear la imagen de detección de la galaxia {g}, {e}')
         filtros = filter_sel(g)[0]
         mask = Datos_L.groups.keys['index']==g
         GR = Datos_L.groups[mask]

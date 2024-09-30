@@ -116,15 +116,11 @@ def mask(galaxy):
     else:
         print('La imagen de detección de la galaxia {galaxy} no existe')
 galaxias_no_psf = []
-#new_try = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header=None)
-#no_ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header=None)
-#n = no_ajustar[0].to_list()
+ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header=None)
+n = ajustar[0].to_list()
 #print(n)
-#for a in new_try[:0]:
-    #print(a)
-#print(new_try_list)
 for g in GL['index']:
-    if g > 1300:
+    if g in n:
         filtros = filter_sel(g)[0]
         print(g)
         mask(g)
