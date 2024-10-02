@@ -84,40 +84,48 @@ for filt in all_filters:
 #L_sex = Table.read('/home/seba/Documents/MorphoLS/Catalog/GalfitM_sex_DECALS_SPLUS_17.csv')
 Datos_L = L.group_by('Group')
 Grupos = Datos_L.groups.keys
+G_183 = Table.read('/home/seba/Documents/MorphoLS/Catalog/GalfitM_sex_DECALS_183.csv')
+gr = G_183.group_by('Group')
+grs = gr.groups.keys
+my_lista = [key['Group'] for key in grs]
+
+new_grs = [5, 34, 144, 189, 192, 197, 199, 215, 231, 244, 275, 276]
+print(my_lista, len(my_lista))
 failed_fits=[]
 for g in Grupos['Group']:
-    mask = Datos_L.groups.keys['Group'] == g
-    Tablef = Datos_L.groups[mask]
-    fil_name = filter_sel(g)[0]
-    n_filtros = len(fil_name)
-    print(fil_name)
+    if g in my_lista or g in new_grs:
+        mask = Datos_L.groups.keys['Group'] == g
+        Tablef = Datos_L.groups[mask]
+        fil_name = filter_sel(g)[0]
+        n_filtros = len(fil_name)
+        #print(fil_name)
     
-    try:
-        # Leer el archivo FITS correspondiente al grupo
-        fi = fits.open(f'galfitm_output/galfitm_group_{g}.fits')
-        for i in range(len(Tablef)):
-            gal = Tablef[i]['Gal']
-            ID = Tablef[i]['objid']
-            ra = Tablef[i]['ra']
-            dec = Tablef[i]['dec']
-            t = Tablef[i]['type']
-            # Leer y añadir datos a la tabla
-            header_data = leer_header(i + 1, fi[4].header, fil_name, n_filtros)
-            header_data['Group'] = g
-            header_data['Gal'] = gal
-            header_data['ID'] = ID
-            header_data['ra'] = ra
-            header_data['dec'] = dec
-            header_data['type'] = t
-            Tabla.append(header_data)
-            # Generar el gráfico si es necesario
-            #grafico(fi, g, n_filtros)
-    except:
-        print(f'El grupo {g} no fue ajustado')
-        failed_fits.append(g)
+        try:
+            # Leer el archivo FITS correspondiente al grupo
+            fi = fits.open(f'galfitm_output/galfitm_group_{g}.fits')
+            for i in range(len(Tablef)):
+                gal = Tablef[i]['Gal']
+                ID = Tablef[i]['objid']
+                ra = Tablef[i]['ra']
+                dec = Tablef[i]['dec']
+                t = Tablef[i]['type']
+                # Leer y añadir datos a la tabla
+                header_data = leer_header(i + 1, fi[4].header, fil_name, n_filtros)
+                header_data['Group'] = g
+                header_data['Gal'] = gal
+                header_data['ID'] = ID
+                header_data['ra'] = ra
+                header_data['dec'] = dec
+                header_data['type'] = t
+                Tabla.append(header_data)
+                # Generar el gráfico si es necesario
+                #grafico(fi, g, n_filtros)
+        except Exception as e:
+            print(f'El grupo {g} no fue ajustado, {e}')
+            failed_fits.append(g)
 # Crear la tabla final con los datos y los nombres de los headers
 table = Table(rows=Tabla, names=header_names)
-ascii.write(table, 'Output_Catalogs/GalfitM_DECALS_SPLUS_25.csv', format='csv', overwrite=True, fast_writer=False)
+ascii.write(table, 'Output_Catalogs/GalfitM_DECALS_195.csv', format='csv', overwrite=True, fast_writer=False)
 print(f'Los grupos no ajustados son {failed_fits}')
 print(len(failed_fits))
 
