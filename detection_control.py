@@ -11,7 +11,7 @@ GL = Datos_L.groups.keys
         
 
 def img_det(galaxy):
-    ruta_base = f'/home/seba/Documents/DECALS/joined_bricks_cs/{galaxy}'
+    ruta_base = f'/home/seba/Documents/DECALS/joined_bricks_cs_extra/{galaxy}'
     filtros_prioritarios = ['g', 'r', 'z']
     filtros_secundarios = ['i']
     suma_imagen = None
@@ -40,7 +40,7 @@ def img_det(galaxy):
 
     if suma_imagen is not None:
         im_det = fits.PrimaryHDU(suma_imagen, header=hdr)
-        im_det.writeto(f'Field_Img/det_cs/det_galaxy_{galaxy}.fits', overwrite=True)
+        im_det.writeto(f'Field_Img/det_cs_extra/det_galaxy_{galaxy}.fits', overwrite=True)
         print(f"Imagen de detección creada para la galaxia {galaxy} utilizando los filtros: {', '.join(filtros_usados)}.")
     else:
         print(f"No se encontraron archivos de los filtros especificados para crear la imagen de detección para la galaxia {galaxy}.")
@@ -56,22 +56,21 @@ def fwhm(GR, filtros):
     mean_fwhm = np.mean(psfsize)
     return mean_fwhm
 Data=[]
-ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header = None)
-n = ajustar[0].to_list()
+#ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header = None)
+#n = ajustar[0].to_list()
 for g in GL['index']:
-    if g in n:
-        #try:
-        #    img_det(g)
-        #    print(f'Galaxia {g}')
-        #except Exception as e:
-        #    print(f'No se pudo crear la imagen de detección de la galaxia {g}, {e}')
-        filtros = filter_sel(g)[0]
-        mask = Datos_L.groups.keys['index']==g
-        GR = Datos_L.groups[mask]
-        #print(filtros)
-        #print(GR['psfsize_g'], GR['psfsize_i'], GR['psfsize_z'])
-        fwhm_size = fwhm(GR, filtros)
-        Data.append(f'sex Field_Img/det_cs/det_galaxy_{g}.fits -c sex.conf -CATALOG_NAME sex/galaxy_{g} -CATALOG_TYPE ASCII_HEAD -PARAMETERS_NAME ./sex.param -DETECT_THRESH 1 -ANALYSIS_THRESH 1 -FILTER_NAME gauss_5.0_9x9.conv -SATUR_LEVEL 25000 -MAG_ZEROPOINT 22.5 -PIXEL_SCALE 0.262 -SEEING_FWHM {fwhm_size} -CHECKIMAGE_TYPE SEGMENTATION -CHECKIMAGE_NAME Field_Img/det_cs/det_galaxy_{g}_seg.fits')
+    try:
+        img_det(g)
+        print(f'Galaxia {g}')
+    except Exception as e:
+        print(f'No se pudo crear la imagen de detección de la galaxia {g}, {e}')
+    filtros = filter_sel(g)[0]
+    mask = Datos_L.groups.keys['index']==g
+    GR = Datos_L.groups[mask]
+    #print(filtros)
+    #print(GR['psfsize_g'], GR['psfsize_i'], GR['psfsize_z'])
+    fwhm_size = fwhm(GR, filtros)
+    Data.append(f'sex Field_Img/det_cs_extra/det_galaxy_{g}.fits -c sex.conf -CATALOG_NAME sex/Extra/galaxy_{g} -CATALOG_TYPE ASCII_HEAD -PARAMETERS_NAME ./sex.param -DETECT_THRESH 1 -ANALYSIS_THRESH 1 -FILTER_NAME gauss_5.0_9x9.conv -SATUR_LEVEL 25000 -MAG_ZEROPOINT 22.5 -PIXEL_SCALE 0.262 -SEEING_FWHM {fwhm_size} -CHECKIMAGE_TYPE SEGMENTATION -CHECKIMAGE_NAME Field_Img/det_cs_extra/det_galaxy_{g}_seg.fits')
 
 
 fic = open('sex_seg.sh', 'w')

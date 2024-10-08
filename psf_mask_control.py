@@ -17,9 +17,9 @@ GL = Datos_L.groups.keys
 #filtros = filter_sel(Datos_L['Group'][0])
 #print(filtros)
 def psf_maker(galaxy, filtro):
-    hdu = fits.open(f'/home/seba/Documents/DECALS/joined_bricks_cs/{galaxy}/{galaxy}_image_{filtro}.fits')
+    hdu = fits.open(f'/home/seba/Documents/DECALS/joined_bricks_cs_extra/{galaxy}/{galaxy}_image_{filtro}.fits')
     data=hdu[0].data
-    source_catalog = ascii.read(f'/home/seba/Documents/MorphoLS/sex/galaxy_{galaxy}')
+    source_catalog = ascii.read(f'/home/seba/Documents/MorphoLS/sex/Extra/galaxy_{galaxy}')
     stars = source_catalog[(source_catalog['FLUX_RADIUS'] < 3) & (source_catalog['MAG_AUTO'] < 22)]
     x_sex = source_catalog['X_IMAGE']
     y_sex = source_catalog['Y_IMAGE']
@@ -70,7 +70,7 @@ def psf_maker(galaxy, filtro):
     print(f'La psf se realizará con {len(stars_tbl)} estrellas')
     #Extraer el background de la imagen
     
-    image = CCDData.read(f'/home/seba/Documents/DECALS/joined_bricks_cs/{galaxy}/{galaxy}_image_{filtro}.fits', unit='adu')
+    image = CCDData.read(f'/home/seba/Documents/DECALS/joined_bricks_cs_extra/{galaxy}/{galaxy}_image_{filtro}.fits', unit='adu')
     mean_val, median_val, std_val = sigma_clipped_stats(image.data, sigma=3.0)
     data -= median_val
     nddata = NDData(data=data)
@@ -86,20 +86,20 @@ def psf_maker(galaxy, filtro):
 
     hdu_psf = fits.PrimaryHDU(epsf.data)
     hdul_psf = fits.HDUList([hdu_psf])
-    hdul_psf.writeto(f'Field_Img/psf_cs/psf_galaxy_{galaxy}_{filtro}.fits', overwrite=True)
+    hdul_psf.writeto(f'Field_Img/psf_cs_extra/psf_galaxy_{galaxy}_{filtro}.fits', overwrite=True)
     
     return
 
 def mask(galaxy):
     #Coordenadas de las galaxias
 
-    Gal_se = Table.read(f'sex/Control_Sample/Galaxy_{galaxy}.csv')
+    Gal_se = Table.read(f'sex/Extra/Galaxy_{galaxy}.csv')
 
     X=np.array(Gal_se['X_IMAGE'])
     Y=np.array(Gal_se['Y_IMAGE'])
 
     #Desenmascarar fuentes
-    det = f'Field_Img/det_cs/det_galaxy_{galaxy}_seg.fits'
+    det = f'Field_Img/det_cs_extra/det_galaxy_{galaxy}_seg.fits'
     if os.path.exists(det):
         fig = fits.open(det)
     
@@ -111,26 +111,25 @@ def mask(galaxy):
         fig[0].data[arr_mask] = 1
         hdr = fig[0].header
         imgF = fits.PrimaryHDU(fig[0].data, header=hdr)
-        imgF.writeto(f'Field_Img/mask_cs/mask_galaxy_{galaxy}.fits', overwrite=True)
+        imgF.writeto(f'Field_Img/mask_cs_extra/mask_galaxy_{galaxy}.fits', overwrite=True)
         return
     else:
         print('La imagen de detección de la galaxia {galaxy} no existe')
 galaxias_no_psf = []
-ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header=None)
-n = ajustar[0].to_list()
+#ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header=None)
+#n = ajustar[0].to_list()
 #print(n)
 for g in GL['index']:
-    if g in n:
-        filtros = filter_sel(g)[0]
-        print(g)
-        mask(g)
-        for filtro in filtros:
-            try:
-                psf_maker(g, filtro)
-            except:
-                if g not in galaxias_no_psf:
-                    galaxias_no_psf.append(g)    
-                    print(f'La psf de la galaxia {g} no pudo ser calculada')
+    filtros = filter_sel(g)[0]
+    print(g)
+    mask(g)
+    for filtro in filtros:
+        try:
+            psf_maker(g, filtro)
+        except:
+            if g not in galaxias_no_psf:
+                galaxias_no_psf.append(g)    
+                print(f'La psf de la galaxia {g} no pudo ser calculada')
 print(galaxias_no_psf)
 
 

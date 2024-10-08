@@ -11,8 +11,8 @@ Datos_L = L.group_by('index')
 Galaxies = Datos_L.groups.keys
 
 def crossmatch(galaxy):
-    sex_catalog = ascii.read(f'sex/galaxy_{galaxy}')
-    galaxies = Table.read(f'Catalog/Galaxies_Control_Sample.csv')
+    sex_catalog = ascii.read(f'sex/Extra/galaxy_{galaxy}')
+    galaxies = Table.read(f'Catalog/Galaxies_Extra.csv')
 
     #Definición de las variables
     ra_sex = sex_catalog['ALPHA_SKY'].astype(float)
@@ -41,14 +41,13 @@ def crossmatch(galaxy):
         print(f'Para la galaxia {galaxy}, se tomaron {len(ra_com)} fuentes.')
     else:
         print(f'Crossmatch correcto para la galaxia {galaxy}')
-    combined_table.write(f'sex/Control_Sample/Galaxy_{galaxy}.csv', format='csv', overwrite=True)
+    combined_table.write(f'sex/Extra/Galaxy_{galaxy}.csv', format='csv', overwrite=True)
     return 
 
-ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header=None)
-n = ajustar[0].to_list()
+#ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header=None)
+#n = ajustar[0].to_list()
 for g in Galaxies['index']:
-    if g in n:
-        crossmatch(g)
+    crossmatch(g)
     
 
 

@@ -16,7 +16,7 @@ import pandas as pd
 def median_sky(galaxy, filtros):
     sk=[]
     for filtro in filtros:
-        image = CCDData.read(f'/home/seba/Documents/DECALS/joined_bricks_cs/{galaxy}/{galaxy}_image_{filtro}.fits', unit='adu')
+        image = CCDData.read(f'/home/seba/Documents/DECALS/joined_bricks_cs_extra/{galaxy}/{galaxy}_image_{filtro}.fits', unit='adu')
         mean, median, std = sigma_clipped_stats(image.data, sigma=3.0)
         sk.append(median)
     #print(sk)
@@ -35,11 +35,11 @@ def galfit_input(GRf, filtros, long, size):
     texto_wvl = ','.join(w)
     A2 = f"A2) {texto_wvl}"
     #Output data image block (FITS filename)
-    B = f'B) galfitm_output/Control_Sample/galfitm_galaxy_{galaxy}.fits'
+    B = f'B) galfitm_output/Extra/galfitm_galaxy_{galaxy}.fits'
     # PSF fine sampling factor relative to data
     E = 'E) 1'
     #Mask
-    mask = f'Field_Img/mask_cs/mask_galaxy_{galaxy}.fits'
+    mask = f'Field_Img/mask_cs_extra/mask_galaxy_{galaxy}.fits'
     num_filtros=len(filtros)
     F = 'F) '+','.join([mask]*num_filtros)
     #File with parameter constraints (ASCII file)
@@ -65,9 +65,9 @@ def galfit_input(GRf, filtros, long, size):
     d = []
     #Input data images (CSL of FITS filenames)
     for j in range(num_filtros):
-        a.append(f'/home/seba/Documents/DECALS/joined_bricks_cs/{galaxy}/{galaxy}_image_{filtros[j]}.fits')
-        c.append(f'/home/seba/Documents/DECALS/sigma_image_cs/{galaxy}/sigma_{galaxy}_weight_{filtros[j]}.fits')
-        d.append(f'Field_Img/psf_cs/psf_galaxy_{galaxy}_{filtros[j]}.fits')       
+        a.append(f'/home/seba/Documents/DECALS/joined_bricks_cs_extra/{galaxy}/{galaxy}_image_{filtros[j]}.fits')
+        c.append(f'/home/seba/Documents/DECALS/sigma_image_cs_extra/{galaxy}/sigma_{galaxy}_weight_{filtros[j]}.fits')
+        d.append(f'Field_Img/psf_cs_extra/psf_galaxy_{galaxy}_{filtros[j]}.fits')       
     texto_img = ','.join(a)
     A = f'A) {texto_img}'
     # Sigma image name (CSL of <nbands> FITS filenames or "none")
@@ -127,7 +127,7 @@ def galfit_input(GRf, filtros, long, size):
     Data.append('Z) 0')   # Skip this model in output image?  (yes=1, no=0)
         
     #Guardar cada línea de data en un archivo
-    fic = open(f'inputs/Control_Sample/galfit_{galaxy}.input', 'w')
+    fic = open(f'inputs/Extra/galfit_{galaxy}.input', 'w')
     for line in Data:
         print(line, file = fic)
     fic.close()
@@ -138,17 +138,16 @@ def galfit_input(GRf, filtros, long, size):
 #L = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_186.csv')
 Datos_L = L.group_by('index')
 GL = Datos_L.groups.keys
-ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header=None)
-n = ajustar[0].to_list()
+#ajustar = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header=None)
+#n = ajustar[0].to_list()
 for g in GL['index']:
-    if g in n and g > 204:
-        with fits.open(f'/home/seba/Documents/DECALS/joined_bricks_cs/{g}/{g}_image_g.fits') as hdul:
-            size = hdul[0].data.shape[0]
-        filtros = filter_sel(g)[0]
-        long = filter_sel(g)[1]
-        sex_data = Table.read(f'sex/Control_Sample/Galaxy_{g}.csv')
-        X = sex_data['X_IMAGE']
-        Y = sex_data['Y_IMAGE']
-        mask = Datos_L.groups.keys['index'] == g
-        GRf = Datos_L.groups[mask]
-        X_1, Y_1 = galfit_input(GRf,filtros,long, size) 
+    with fits.open(f'/home/seba/Documents/DECALS/joined_bricks_cs_extra/{g}/{g}_image_g.fits') as hdul:
+        size = hdul[0].data.shape[0]
+    filtros = filter_sel(g)[0]
+    long = filter_sel(g)[1]
+    sex_data = Table.read(f'sex/Extra/Galaxy_{g}.csv')
+    X = sex_data['X_IMAGE']
+    Y = sex_data['Y_IMAGE']
+    mask = Datos_L.groups.keys['index'] == g
+    GRf = Datos_L.groups[mask]
+    X_1, Y_1 = galfit_input(GRf,filtros,long, size) 

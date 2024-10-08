@@ -15,7 +15,7 @@ def filter_sel(galaxy):
     lambda_por_filtro=[]
     filtros_longitudes = {'g': '4770', 'r': '6231', 'i': '7625', 'z': '9134'}
     
-    directorio = f'/home/seba/Documents/DECALS/joined_bricks/{galaxy}/'
+    directorio = f'/home/seba/Documents/DECALS/joined_bricks_cs_extra/{galaxy}/'
     if os.path.exists(directorio):
         for filtro, lambda_ in filtros_longitudes.items():
             nombre_archivo = f'{galaxy}_image_{filtro}.fits'

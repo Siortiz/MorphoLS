@@ -81,16 +81,16 @@ for filt in all_filters:
     header_names.append(f'PA_{filt}')
     header_names.append(f'e_PA_{filt}')
     
-L_galaxies = Table.read('/home/seba/Documents/MorphoLS/Catalog/Galaxies_Control_Sample.csv')
+L_galaxies = Table.read('/home/seba/Documents/MorphoLS/Catalog/Galaxies_Extra.csv')
 #ajustados = pd.read_csv('/home/seba/Documents/numeros_unicos.txt', header=None)
-no_ajustados = pd.read_csv('/home/seba/Documents/numeros_out_sample.txt', header=None)
+#no_ajustados = pd.read_csv('/home/seba/Documents/numeros_out_sample.txt', header=None)
 #n = ajustados[0].to_list()
-n_2 = no_ajustados[0].to_list()
+#n_2 = no_ajustados[0].to_list()
 # Filtrar los elementos que NO están en la lista n
-L_filt = L_galaxies[~np.isin(L_galaxies['index'], n_2)]
+#L_filt = L_galaxies[~np.isin(L_galaxies['index'], n_2)]
 #L_filt_2 = L_filt[~np.isin(L_filt['index'], n_2)]
 #print(L)
-Datos_L = L_filt.group_by('index')
+Datos_L = L_galaxies.group_by('index')
 Grupos = Datos_L.groups.keys
 failed_fits=[]
 for g in Grupos['index']:
@@ -103,7 +103,7 @@ for g in Grupos['index']:
         
     # Leer el archivo FITS correspondiente al grupo
     try:
-        fi = fits.open(f'/home/seba/Documents/MorphoLS/galfitm_output/Control_Sample/galfitm_galaxy_{g}.fits')
+        fi = fits.open(f'/home/seba/Documents/MorphoLS/galfitm_output/Extra/galfitm_galaxy_{g}.fits')
         for i in range(len(Tablef)):
             gal = Tablef[i]['index']
             ID = Tablef[i]['objid']
@@ -126,7 +126,7 @@ for g in Grupos['index']:
     
 # Crear la tabla final con los datos y los nombres de los headers
 table = Table(rows=Tabla, names=header_names)
-ascii.write(table, '/home/seba/Documents/MorphoLS/Output_Catalogs/GalfitM_Output_Control_Sample_good_full.csv', format='csv', overwrite=True, fast_writer=False)
+ascii.write(table, '/home/seba/Documents/MorphoLS/Output_Catalogs/GalfitM_Output_Extra.csv', format='csv', overwrite=True, fast_writer=False)
 print(f'Los grupos no ajustados son {failed_fits}')
 print(len(failed_fits))
 
