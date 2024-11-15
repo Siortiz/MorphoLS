@@ -138,13 +138,15 @@ def galfit_input(GRf, filtros, long):
 #L = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_186.csv')
 Datos_L = L.group_by('Group')
 GL = Datos_L.groups.keys
-ajustar = [215]
+ajustar = [25, 35]
 for g in GL['Group']:
     if g in ajustar:
         print(g)
         filtros = filter_sel(g)[0]
+        print(filtros)
         long = filter_sel(g)[1]
         sex_data = Table.read(f'sex/Groups/Galaxies_group_{g}.csv')
+        print(len(sex_data))
         X = sex_data['X_IMAGE']
         Y = sex_data['Y_IMAGE']
         mask = Datos_L.groups.keys['Group'] == g

@@ -84,12 +84,12 @@ for filt in all_filters:
 #L_sex = Table.read('/home/seba/Documents/MorphoLS/Catalog/GalfitM_sex_DECALS_SPLUS_17.csv')
 Datos_L = L.group_by('Group')
 Grupos = Datos_L.groups.keys
-G_183 = Table.read('/home/seba/Documents/MorphoLS/Catalog/GalfitM_sex_DECALS_183.csv')
-gr = G_183.group_by('Group')
+G_195 = Table.read('/home/seba/Documents/MorphoLS/Output_Catalogs/GalfitM_DECALS_195.csv')
+gr = G_195.group_by('Group')
 grs = gr.groups.keys
 my_lista = [key['Group'] for key in grs]
 
-new_grs = [5, 34, 144, 189, 192, 197, 199, 215, 231, 244, 275, 276]
+new_grs = [25, 35, 193, 206, 208]
 print(my_lista, len(my_lista))
 failed_fits=[]
 for g in Grupos['Group']:
@@ -125,7 +125,7 @@ for g in Grupos['Group']:
             failed_fits.append(g)
 # Crear la tabla final con los datos y los nombres de los headers
 table = Table(rows=Tabla, names=header_names)
-ascii.write(table, 'Output_Catalogs/GalfitM_DECALS_195.csv', format='csv', overwrite=True, fast_writer=False)
+ascii.write(table, 'Output_Catalogs/GalfitM_DECALS_final.csv', format='csv', overwrite=True, fast_writer=False)
 print(f'Los grupos no ajustados son {failed_fits}')
 print(len(failed_fits))
 

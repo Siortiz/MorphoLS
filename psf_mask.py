@@ -92,7 +92,7 @@ def psf_maker(grupo, filtro):
 def mask(grupo):
     #Coordenadas de las galaxias
 
-    Gal_se = Table.read(f'sex/Galaxies_group_{grupo}.csv')
+    Gal_se = Table.read(f'sex/Groups/Galaxies_group_{grupo}.csv')
 
     X=np.array(Gal_se['X_IMAGE'])
     Y=np.array(Gal_se['Y_IMAGE'])
@@ -114,15 +114,16 @@ def mask(grupo):
         return
     else:
         print('La imagen de detección del grupo {grupo} no existe')
-for g in GL['Group']:
-    filtros = filter_sel(g)[0]
-    print(g)
-    mask(g)
-    try:
-        for filtro in filtros:
-            psf_maker(g, filtro)
-    except:
-        print(f'La psf del grupo {g} no pudo ser calculada')
+mask(193)
+#for g in GL['Group']:
+    #filtros = filter_sel(g)[0]
+    #print(g)
+    #mask(g)
+    #try:
+    #    for filtro in filtros:
+    #        psf_maker(g, filtro)
+    #except:
+    #    print(f'La psf del grupo {g} no pudo ser calculada')
 
 
 

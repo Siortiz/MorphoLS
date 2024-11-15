@@ -6,19 +6,19 @@ import astropy.units as u
 from astropy.table import Table
 from ejecutable import L
 #L = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_186.csv')
-#Datos_L = L.group_by('Group')
-#GL = Datos_L.groups.keys
+Datos_L = L.group_by('Group')
+GL = Datos_L.groups.keys
 
 
-def filter_sel(galaxy):
+def filter_sel(group):
     filtros_existentes=[]
     lambda_por_filtro=[]
     filtros_longitudes = {'g': '4770', 'r': '6231', 'i': '7625', 'z': '9134'}
     
-    directorio = f'/home/seba/Documents/DECALS/joined_bricks_cs_extra/{galaxy}/'
+    directorio = f'/home/seba/Documents/DECALS/joined_bricks/{group}/'
     if os.path.exists(directorio):
         for filtro, lambda_ in filtros_longitudes.items():
-            nombre_archivo = f'{galaxy}_image_{filtro}.fits'
+            nombre_archivo = f'{group}_image_{filtro}.fits'
             if  nombre_archivo in os.listdir(directorio):
                 filtros_existentes.append(filtro)
                 lambda_por_filtro.append(lambda_)
@@ -26,7 +26,7 @@ def filter_sel(galaxy):
         lambda_por_filtro = np.array(lambda_por_filtro)
         return filtros_existentes, lambda_por_filtro
     else:
-        print(f'La galaxia {galaxy} no existe')
+        print(f'El grupo {group} no existe')
 def coordenadas(grupo):
     #Coordenadas a posiciones
     hdu = fits.open(f'Field_Img/det_cs/det_galaxy_{galaxy}.fits')

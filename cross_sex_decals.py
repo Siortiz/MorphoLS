@@ -11,7 +11,7 @@ Datos_L = L.group_by('Group')
 Grupos = Datos_L.groups.keys
 
 def crossmatch(grupo):
-    sex_catalog = ascii.read(f'sex/group_{grupo}')
+    sex_catalog = ascii.read(f'sex/Groups/group_{grupo}')
     galaxies = Table.read(f'/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_{grupo}.csv')
 
     #Definición de las variables
@@ -41,13 +41,13 @@ def crossmatch(grupo):
     print(matched2)
     print(galaxies)
     print(f'La cantidad de galaxias en el grupo {grupo} antes del crossmatch es {len(ra_gal)} y después del crossmatch es {len(ra_com)}')
-    combined_table.write(f'sex/Galaxies_group_{grupo}.csv', format='csv', overwrite=True)
+    combined_table.write(f'sex/Groups/Galaxies_group_{grupo}.csv', format='csv', overwrite=True)
     return 
 
-#crossmatch(5)
-for g in Grupos['Group']:
-    if g != 275:
-        crossmatch(g)
+crossmatch(193)
+#for g in Grupos['Group']:
+#    if g != 275:
+#        crossmatch(g)
     
 
 
