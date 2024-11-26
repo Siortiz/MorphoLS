@@ -4,7 +4,7 @@ import os
 import numpy as np
 from utils import filter_sel 
 from ejecutable import L
-#L = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_5.csv')
+#L = Table.read('/home/seba/Documents/MorphoLS/sex/Galaxies_DECALS_sex.csv')
 Datos_L = L.group_by('Group')
 GL = Datos_L.groups.keys
         

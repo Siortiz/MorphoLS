@@ -1,13 +1,13 @@
 A) /home/seba/Documents/DECALS/joined_bricks/37/37_image_g.fits,/home/seba/Documents/DECALS/joined_bricks/37/37_image_r.fits,/home/seba/Documents/DECALS/joined_bricks/37/37_image_i.fits,/home/seba/Documents/DECALS/joined_bricks/37/37_image_z.fits
 A1) g,r,i,z
 A2) 4770,6231,7625,9134
-B) galfitm_output/galfitm_group_37.fits
+B) galfitm_output_2/galfitm_group_37.fits
 C) /home/seba/Documents/DECALS/sigma_image/37/sigma_37_weight_g.fits,/home/seba/Documents/DECALS/sigma_image/37/sigma_37_weight_r.fits,/home/seba/Documents/DECALS/sigma_image/37/sigma_37_weight_i.fits,/home/seba/Documents/DECALS/sigma_image/37/sigma_37_weight_z.fits
 D) Field_Img/psf/psf_group_37_g.fits,Field_Img/psf/psf_group_37_r.fits,Field_Img/psf/psf_group_37_i.fits,Field_Img/psf/psf_group_37_z.fits
 E) 1
 F) Field_Img/mask/mask_group_37.fits,Field_Img/mask/mask_group_37.fits,Field_Img/mask/mask_group_37.fits,Field_Img/mask/mask_group_37.fits
 G) none
-H) 0 1374 0 1374
+H) 0 1474 0 1474
 I) 300 300
 J) 22.5,22.5,22.5,22.5
 K) 0.262 0.262

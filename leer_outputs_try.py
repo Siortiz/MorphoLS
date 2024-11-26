@@ -84,16 +84,16 @@ for filt in all_filters:
 #L_sex = Table.read('/home/seba/Documents/MorphoLS/Catalog/GalfitM_sex_DECALS_SPLUS_17.csv')
 Datos_L = L.group_by('Group')
 Grupos = Datos_L.groups.keys
-G_195 = Table.read('/home/seba/Documents/MorphoLS/Output_Catalogs/GalfitM_DECALS_195.csv')
-gr = G_195.group_by('Group')
-grs = gr.groups.keys
-my_lista = [key['Group'] for key in grs]
+#G_195 = Table.read('/home/seba/Documents/MorphoLS/Output_Catalogs/GalfitM_DECALS_195.csv')
+#gr = G_195.group_by('Group')
+#grs = gr.groups.keys
+#my_lista = [key['Group'] for key in grs]
 
-new_grs = [25, 35, 193, 206, 208]
-print(my_lista, len(my_lista))
+splus = [20, 26, 28, 32, 36, 39, 40, 48, 51, 52, 54, 55, 56, 57, 58, 59, 60, 62, 68, 186, 187, 191, 198, 230, 234, 235, 236, 267, 268, 269, 270, 271, 277]
+#print(my_lista, len(my_lista))
 failed_fits=[]
 for g in Grupos['Group']:
-    if g in my_lista or g in new_grs:
+    if g in splus:
         mask = Datos_L.groups.keys['Group'] == g
         Tablef = Datos_L.groups[mask]
         fil_name = filter_sel(g)[0]

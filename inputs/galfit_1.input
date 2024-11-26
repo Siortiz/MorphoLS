@@ -1,13 +1,13 @@
 A) /home/seba/Documents/DECALS/joined_bricks/1/1_image_g.fits,/home/seba/Documents/DECALS/joined_bricks/1/1_image_r.fits,/home/seba/Documents/DECALS/joined_bricks/1/1_image_i.fits,/home/seba/Documents/DECALS/joined_bricks/1/1_image_z.fits
 A1) g,r,i,z
 A2) 4770,6231,7625,9134
-B) galfitm_output/galfitm_group_1.fits
+B) galfitm_output_2/galfitm_group_1.fits
 C) /home/seba/Documents/DECALS/sigma_image/1/sigma_1_weight_g.fits,/home/seba/Documents/DECALS/sigma_image/1/sigma_1_weight_r.fits,/home/seba/Documents/DECALS/sigma_image/1/sigma_1_weight_i.fits,/home/seba/Documents/DECALS/sigma_image/1/sigma_1_weight_z.fits
 D) Field_Img/psf/psf_group_1_g.fits,Field_Img/psf/psf_group_1_r.fits,Field_Img/psf/psf_group_1_i.fits,Field_Img/psf/psf_group_1_z.fits
 E) 1
 F) Field_Img/mask/mask_group_1.fits,Field_Img/mask/mask_group_1.fits,Field_Img/mask/mask_group_1.fits,Field_Img/mask/mask_group_1.fits
 G) none
-H) 0 1374 0 1374
+H) 0 1474 0 1474
 I) 300 300
 J) 22.5,22.5,22.5,22.5
 K) 0.262 0.262
@@ -19,7 +19,7 @@ W) input,model,residual
 0) sersic
 1) 892.1822,892.1822,892.1822,892.1822 1
 2) 838.8523,838.8523,838.8523,838.8523 1
-3) 18.593979,18.276794,17.964882,17.943258 4
+3) 18.290874,17.58394,17.242495,17.028875 4
 4) 7.849,7.849,7.849,7.849 2
 5) 2.054712041884817,2.054712041884817,2.054712041884817,2.054712041884817 2
 9) 0.9354536950420954,0.9354536950420954,0.9354536950420954,0.9354536950420954 1
@@ -37,7 +37,7 @@ W) input,model,residual
 0) sersic
 1) 741.6772,741.6772,741.6772,741.6772 1
 2) 675.9926,675.9926,675.9926,675.9926 1
-3) 18.290874,17.58394,17.242495,17.028875 4
+3) 18.981915,18.665445,18.426931,18.363974 4
 4) 6.89,6.89,6.89,6.89 2
 5) 1.8083989501312334,1.8083989501312334,1.8083989501312334,1.8083989501312334 2
 9) 0.5797101449275363,0.5797101449275363,0.5797101449275363,0.5797101449275363 1
@@ -46,7 +46,7 @@ W) input,model,residual
 0) sersic
 1) 483.1095,483.1095,483.1095,483.1095 1
 2) 565.3185,565.3185,565.3185,565.3185 1
-3) 18.981915,18.665445,18.426931,18.363974 4
+3) 18.593979,18.276794,17.964882,17.943258 4
 4) 6.182,6.182,6.182,6.182 2
 5) 1.4580188679245283,1.4580188679245283,1.4580188679245283,1.4580188679245283 2
 9) 0.6093845216331505,0.6093845216331505,0.6093845216331505,0.6093845216331505 1

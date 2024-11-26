@@ -1,7 +1,7 @@
 A) /home/seba/Documents/DECALS/joined_bricks/24/24_image_g.fits,/home/seba/Documents/DECALS/joined_bricks/24/24_image_r.fits,/home/seba/Documents/DECALS/joined_bricks/24/24_image_i.fits,/home/seba/Documents/DECALS/joined_bricks/24/24_image_z.fits
 A1) g,r,i,z
 A2) 4770,6231,7625,9134
-B) galfitm_output/galfitm_group_24.fits
+B) galfitm_output_2/galfitm_group_24.fits
 C) /home/seba/Documents/DECALS/sigma_image/24/sigma_24_weight_g.fits,/home/seba/Documents/DECALS/sigma_image/24/sigma_24_weight_r.fits,/home/seba/Documents/DECALS/sigma_image/24/sigma_24_weight_i.fits,/home/seba/Documents/DECALS/sigma_image/24/sigma_24_weight_z.fits
 D) Field_Img/psf/psf_group_24_g.fits,Field_Img/psf/psf_group_24_r.fits,Field_Img/psf/psf_group_24_i.fits,Field_Img/psf/psf_group_24_z.fits
 E) 1

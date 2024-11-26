@@ -1,7 +1,7 @@
 A) /home/seba/Documents/DECALS/joined_bricks/270/270_image_g.fits,/home/seba/Documents/DECALS/joined_bricks/270/270_image_r.fits,/home/seba/Documents/DECALS/joined_bricks/270/270_image_i.fits,/home/seba/Documents/DECALS/joined_bricks/270/270_image_z.fits
 A1) g,r,i,z
 A2) 4770,6231,7625,9134
-B) galfitm_output/galfitm_group_270.fits
+B) galfitm_output_2/galfitm_group_270.fits
 C) /home/seba/Documents/DECALS/sigma_image/270/sigma_270_weight_g.fits,/home/seba/Documents/DECALS/sigma_image/270/sigma_270_weight_r.fits,/home/seba/Documents/DECALS/sigma_image/270/sigma_270_weight_i.fits,/home/seba/Documents/DECALS/sigma_image/270/sigma_270_weight_z.fits
 D) Field_Img/psf/psf_group_270_g.fits,Field_Img/psf/psf_group_270_r.fits,Field_Img/psf/psf_group_270_i.fits,Field_Img/psf/psf_group_270_z.fits
 E) 1

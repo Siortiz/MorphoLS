@@ -24,8 +24,8 @@ def median_sky(grupo, filtros):
     I = f'1) {texto_sky}'
     return I
 
-def galfit_input(GRf, filtros, long):
-    grupo=GRf['Group'][0]
+def galfit_input(grupo, filtros, long):
+    #grupo=GRf['Group'][0]
     #Band labels
     f = filtros.tolist()
     texto_filtros = ','.join(f)
@@ -35,7 +35,7 @@ def galfit_input(GRf, filtros, long):
     texto_wvl = ','.join(w)
     A2 = f"A2) {texto_wvl}"
     #Output data image block (FITS filename)
-    B = f'B) galfitm_output/galfitm_group_{grupo}.fits'
+    B = f'B) galfitm_output_2/galfitm_group_{grupo}.fits'
     # PSF fine sampling factor relative to data
     E = 'E) 1'
     #Mask
@@ -95,7 +95,7 @@ def galfit_input(GRf, filtros, long):
         Data.append('1) '+','.join([str(x)]*num_filtros)+' 1')
         Data.append('2) '+','.join([str(y)]*num_filtros)+' 1')
         #Magnitudes
-        magnitudes = [GRf[f'mag_{filtro}'][i] for filtro in filtros]
+        magnitudes = [sex_data[f'mag_{filtro}'][i] for filtro in filtros]
         # Reemplaza valores infinitos por 20
         magnitudes = [20 if math.isinf(mag) else mag for mag in magnitudes]
         magnitudes_text = ','.join(map(str, magnitudes))
@@ -138,17 +138,18 @@ def galfit_input(GRf, filtros, long):
 #L = Table.read('/home/seba/Documents/DECALS/Galaxies/Galaxies_DECALS_186.csv')
 Datos_L = L.group_by('Group')
 GL = Datos_L.groups.keys
-ajustar = [25, 35]
+
+#ajustar = [1, 2, 3]
 for g in GL['Group']:
-    if g in ajustar:
+    if g >= 262 :
         print(g)
         filtros = filter_sel(g)[0]
-        print(filtros)
+        #print(filtros)
         long = filter_sel(g)[1]
         sex_data = Table.read(f'sex/Groups/Galaxies_group_{g}.csv')
-        print(len(sex_data))
+        #print(len(sex_data))
         X = sex_data['X_IMAGE']
         Y = sex_data['Y_IMAGE']
-        mask = Datos_L.groups.keys['Group'] == g
-        GRf = Datos_L.groups[mask]
-        X_1, Y_1 = galfit_input(GRf,filtros,long) 
+        #mask = Datos_L.groups.keys['Group'] == g
+        #GRf = Datos_L.groups[mask]
+        X_1, Y_1 = galfit_input(g,filtros,long) 
