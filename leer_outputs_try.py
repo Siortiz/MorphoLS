@@ -102,7 +102,7 @@ for g in Grupos['Group']:
     
         try:
             # Leer el archivo FITS correspondiente al grupo
-            fi = fits.open(f'galfitm_output/galfitm_group_{g}.fits')
+            fi = fits.open(f'galfitm_output_2/galfitm_group_{g}.fits')
             for i in range(len(Tablef)):
                 gal = Tablef[i]['Gal']
                 ID = Tablef[i]['objid']
@@ -125,7 +125,7 @@ for g in Grupos['Group']:
             failed_fits.append(g)
 # Crear la tabla final con los datos y los nombres de los headers
 table = Table(rows=Tabla, names=header_names)
-ascii.write(table, 'Output_Catalogs/GalfitM_DECALS_final.csv', format='csv', overwrite=True, fast_writer=False)
+ascii.write(table, 'Output_Catalogs/GalfitM_DECALS_splus_ahorasi.csv', format='csv', overwrite=True, fast_writer=False)
 print(f'Los grupos no ajustados son {failed_fits}')
 print(len(failed_fits))
 
