@@ -89,11 +89,13 @@ Grupos = Datos_L.groups.keys
 #grs = gr.groups.keys
 #my_lista = [key['Group'] for key in grs]
 
+no_ajustar = [7, 8, 65, 109, 125, 135, 145, 172, 187, 198, 207, 228, 252, 263, 267, 268, 277]
 splus = [20, 26, 28, 32, 36, 39, 40, 48, 51, 52, 54, 55, 56, 57, 58, 59, 60, 62, 68, 186, 187, 191, 198, 230, 234, 235, 236, 267, 268, 269, 270, 271, 277]
 #print(my_lista, len(my_lista))
 failed_fits=[]
+not_failed = []
 for g in Grupos['Group']:
-    if g in splus:
+    if g not in no_ajustar:
         mask = Datos_L.groups.keys['Group'] == g
         Tablef = Datos_L.groups[mask]
         fil_name = filter_sel(g)[0]
@@ -118,6 +120,10 @@ for g in Grupos['Group']:
                 header_data['dec'] = dec
                 header_data['type'] = t
                 Tabla.append(header_data)
+                if g not in not_failed:
+                    not_failed.append(g)
+                else:
+                    continue
                 # Generar el gráfico si es necesario
                 #grafico(fi, g, n_filtros)
         except Exception as e:
@@ -125,8 +131,9 @@ for g in Grupos['Group']:
             failed_fits.append(g)
 # Crear la tabla final con los datos y los nombres de los headers
 table = Table(rows=Tabla, names=header_names)
-ascii.write(table, 'Output_Catalogs/GalfitM_DECALS_splus_ahorasi.csv', format='csv', overwrite=True, fast_writer=False)
+ascii.write(table, 'Output_Catalogs/GalfitM_DECALS_final_ahorasi.csv', format='csv', overwrite=True, fast_writer=False)
 print(f'Los grupos no ajustados son {failed_fits}')
+print(f'Los grupos ajustados son {len(not_failed)}')
 print(len(failed_fits))
 
 
