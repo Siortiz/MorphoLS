@@ -55,8 +55,8 @@ def grafico(fits, grupo, n_filtros):
         axs[0, j].set_title(f'{fil_name[j]}')
         axs[1, j].imshow(fits[n_filtros + j].data, cmap='gray', vmin=-0.5, vmax=0.5)
         axs[2, j].imshow(fits[2 * n_filtros + j].data, cmap='gray', vmin=-0.5, vmax=0.5)
-        axs[0, 0].text(60, 140, '6"', fontsize=10, color='green')
-        axs[0, 0].plot([60, 80], [150, 150], 'b-', lw=3)
+        axs[0, 0].text(60, 140, '1'', fontsize=10, color='green')
+        axs[0, 0].plot([60, 290], [150, 150], color='green', lw=1)
     plt.savefig(f'Out_Img/group_{grupo}.svg', format='svg', dpi=1200)
     plt.close()
     return
@@ -95,7 +95,7 @@ splus = [20, 26, 28, 32, 36, 39, 40, 48, 51, 52, 54, 55, 56, 57, 58, 59, 60, 62,
 failed_fits=[]
 not_failed = []
 for g in Grupos['Group']:
-    if g not in no_ajustar:
+    if g == 235:
         mask = Datos_L.groups.keys['Group'] == g
         Tablef = Datos_L.groups[mask]
         fil_name = filter_sel(g)[0]
@@ -125,13 +125,13 @@ for g in Grupos['Group']:
                 else:
                     continue
                 # Generar el gráfico si es necesario
-                #grafico(fi, g, n_filtros)
+                grafico(fi, g, n_filtros)
         except Exception as e:
             print(f'El grupo {g} no fue ajustado, {e}')
             failed_fits.append(g)
 # Crear la tabla final con los datos y los nombres de los headers
-table = Table(rows=Tabla, names=header_names)
-ascii.write(table, 'Output_Catalogs/GalfitM_DECALS_final_ahorasi.csv', format='csv', overwrite=True, fast_writer=False)
+#table = Table(rows=Tabla, names=header_names)
+#ascii.write(table, 'Output_Catalogs/GalfitM_DECALS_final_ahorasi.csv', format='csv', overwrite=True, fast_writer=False)
 print(f'Los grupos no ajustados son {failed_fits}')
 print(f'Los grupos ajustados son {len(not_failed)}')
 print(len(failed_fits))
