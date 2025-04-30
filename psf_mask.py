@@ -15,10 +15,14 @@ Datos_L = L.group_by('Group')
 GL = Datos_L.groups.keys
 #filtros = filter_sel(Datos_L['Group'][0])
 #print(filtros)
+
 def psf_maker(grupo, filtro):
+    # Abrir imagen en cada filtro
     hdu = fits.open(f'/home/seba/Documents/DECALS/joined_bricks/{grupo}/{grupo}_image_{filtro}.fits')
     data=hdu[0].data
+    # Abrir catálogo de SExtractor
     source_catalog = ascii.read(f'/home/seba/Documents/MorphoLS/sex/group_{grupo}')
+    # Seleccionar estrellas con un flux_radius < 3 y magnitud < 22 para que sean lo suficientemente brillantes
     stars = source_catalog[(source_catalog['FLUX_RADIUS'] < 3) & (source_catalog['MAG_AUTO'] < 22)]
     x_sex = source_catalog['X_IMAGE']
     y_sex = source_catalog['Y_IMAGE']
@@ -26,7 +30,6 @@ def psf_maker(grupo, filtro):
     y = stars['Y_IMAGE']
     snr = stars['SNR_WIN']
     #Para no considerar las estrellas de los bordes
-    
     size_box = 25
     hsize = (size_box) - 1/2
     mask = ((x > hsize) & (x < (data.shape[1] -1 - hsize)) & (y > hsize) & (y <   (data.shape[0] -1 - hsize)))
@@ -64,7 +67,7 @@ def psf_maker(grupo, filtro):
     stars_tbl['y'] = selected_y
     stars_tbl['SNR'] = selected_snr
 
-
+    # Defino un límite en SNR, para que las estrellas tengan la señal suficiente, pero no estén saturadas
     stars_tbl = stars_tbl[(stars_tbl['SNR'] > 750) & (stars_tbl['SNR'] < 25000)]
     print(len(stars_tbl))
     #Extraer el background de la imagen
@@ -114,16 +117,16 @@ def mask(grupo):
         return
     else:
         print('La imagen de detección del grupo {grupo} no existe')
-mask(193)
-#for g in GL['Group']:
-    #filtros = filter_sel(g)[0]
-    #print(g)
-    #mask(g)
-    #try:
-    #    for filtro in filtros:
-    #        psf_maker(g, filtro)
-    #except:
-    #    print(f'La psf del grupo {g} no pudo ser calculada')
+
+for g in GL['Group']:
+    filtros = filter_sel(g)[0]
+    print(g)
+    mask(g)
+    try:
+        for filtro in filtros:
+            psf_maker(g, filtro)
+    except:
+        print(f'La psf del grupo {g} no pudo ser calculada')
 
 
 
